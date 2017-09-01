@@ -561,7 +561,7 @@ Public Class Form1
     Sub SelectedNodeChanged()
         'Beim Click auf NewTreeView1 Zeile im Datagrid 5 selektieren
         For i As Integer = 0 To DataGridView5.Rows.Count - 1
-            If DataGridView5.Rows(i).Cells(2).Value.ToString = NewTreeView1.SelectedNode.Name.ToString() Then
+            If DataGridView5.Rows(i).Cells(1).Value.ToString = NewTreeView1.SelectedNode.Name.ToString() Then
                 'markiert die Zeile
                 DataGridView5.SelectionMode = DataGridViewSelectionMode.FullRowSelect
                 DataGridView5.Rows(i).Selected = True
@@ -604,7 +604,7 @@ Public Class Form1
         If DataGridView5.Rows.Count > 0 Then
             Dim ArtikelID As String = ""
             Dim node As TreeNode = Nothing
-            ArtikelID = DataGridView5.CurrentRow.Cells(2).Value
+            ArtikelID = DataGridView5.CurrentRow.Cells(1).Value
             If TBMStructure = True And ArtikelID <> "" Then
                 NewTreeView1.SelectedNode = NewTreeView1.Nodes.Find(ArtikelID, True)(0)
                 NewTreeView1.Select()
@@ -847,17 +847,17 @@ Public Class Form1
 #End Region
 
 
-    'Sub NewNumberOffer()
-    '     Dim SpezRow As DataSet1.SpezifiktionRow = Nothing
-    'For i = 0 To DataGridView5.Rows.Count - 1
-    '       SpezRow = DataSet1.Spezifiktion.Rows(i) 'OptionsID
-    'For Each SpezRow In DataSet1.Spezifiktion.Rows
-    'If DataGridView5.Rows(i).Cells(0).Value = SpezRow.Then
-    '               SpezRow.SortRow = i + 1
-    'End If
-    'Next
-    'Next
-    'End Sub
+    Sub NewNumberOffer()
+        Dim SpezRow As DataSet1.SpezOptionenRow = Nothing
+        For i = 0 To DataGridView5.Rows.Count - 1
+            SpezRow = DataSet1.SpezOptionen.Rows(i) 'OptionsID
+            For Each SpezRow In DataSet1.SpezOptionen.Rows
+                If DataGridView5.Rows(i).Cells(1).Value = SpezRow.ArtikelID Then
+                    SpezRow.SortRow = i + 1
+                End If
+            Next
+        Next
+    End Sub
 
 
 #Region "Einzelne Äste des Baumes komplett ein- oder auschecken und in Angebotstabelle kopieren"
@@ -869,7 +869,7 @@ Public Class Form1
                 MsgBox("Es können nicht gleichzeitig alle Bausteine ausgewählt werden!", vbExclamation)
             End If
         End If
-        'NewNumberOffer()
+        NewNumberOffer()
     End Sub
 
     Private Sub CheckAllChildNodes(treenode As TreeNode)
@@ -912,9 +912,9 @@ Public Class Form1
                 If SelNode.Checked = False Then
                     'hier selektierten Artikel aus Angebot entfernen
                     For Each SpezRow In DataSet1.SpezOptionen.Select("ArtikelID = '" & SelNode.Name & "'")
-                        'If SpezRow.Angebotsnummer = CB_Angebotsnummer.Text Then
-                        'SpezRow.Delete()
-                        'End If
+                        If SpezRow.Angebotsnummer = CB_Angebotsnummer.Text Then
+                            SpezRow.Delete()
+                        End If
                     Next
                 End If
             End If
@@ -1006,13 +1006,13 @@ Public Class Form1
         TraverseChildNodes(NewTreeView1.Nodes)
         For i = 0 To DataSet1.SpezOptionen.Rows.Count - 1
             SpezRow = DataSet1.SpezOptionen.Rows(i)
-            ' If CB_Angebotsnummer.Text = SpezRow.Angebotsnummer Then
-            ' Dim Nodes As TreeNode() = Nothing
-            'Nodes = NewTreeView1.Nodes.Find(SpezRow.ArtikelID, True)
-            'For Each node As TreeNode In Nodes
-            'node.Checked = True
-            'Next
-            'End If
+            If CB_Angebotsnummer.Text = SpezRow.Angebotsnummer Then
+                Dim Nodes As TreeNode() = Nothing
+                Nodes = NewTreeView1.Nodes.Find(SpezRow.ArtikelID, True)
+                For Each node As TreeNode In Nodes
+                    node.Checked = True
+                Next
+            End If
         Next
     End Sub
 #End Region

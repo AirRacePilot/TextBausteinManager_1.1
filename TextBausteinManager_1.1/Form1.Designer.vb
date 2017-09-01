@@ -24,6 +24,8 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.DateiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProduktstrukturNeuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -225,7 +227,7 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DateiToolStripMenuItem, Me.VertreterToolStripMenuItem, Me.AngebotToolStripMenuItem, Me.KonfigurationToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(868, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1285, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -305,7 +307,7 @@ Partial Class Form1
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 648)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(868, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1285, 22)
         Me.StatusStrip1.TabIndex = 1
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -315,7 +317,7 @@ Partial Class Form1
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSB_AddManufacturerNode, Me.TSB_AddProductNode, Me.TSB_AddArticleNode, Me.TSB_DeleteNode, Me.ToolStripButton1})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(868, 31)
+        Me.ToolStrip1.Size = New System.Drawing.Size(1285, 31)
         Me.ToolStrip1.TabIndex = 2
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -397,7 +399,7 @@ Partial Class Form1
         '
         Me.Panel2.Controls.Add(Me.TabControl1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel2.Location = New System.Drawing.Point(228, 55)
+        Me.Panel2.Location = New System.Drawing.Point(645, 55)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(640, 593)
         Me.Panel2.TabIndex = 6
@@ -1559,7 +1561,7 @@ Partial Class Form1
         Me.NewTreeView1.Location = New System.Drawing.Point(0, 55)
         Me.NewTreeView1.Name = "NewTreeView1"
         Me.NewTreeView1.SelectedImageIndex = 0
-        Me.NewTreeView1.Size = New System.Drawing.Size(228, 593)
+        Me.NewTreeView1.Size = New System.Drawing.Size(645, 593)
         Me.NewTreeView1.TabIndex = 7
         '
         'ProduktArtikelBindingSource1
@@ -1618,6 +1620,9 @@ Partial Class Form1
         '
         Me.Column3.DataPropertyName = "ArtikelID"
         Me.Column3.DataSource = Me.ArtikelBindingSource
+        DataGridViewCellStyle1.Format = "C2"
+        DataGridViewCellStyle1.NullValue = Nothing
+        Me.Column3.DefaultCellStyle = DataGridViewCellStyle1
         Me.Column3.DisplayMember = "EKPreis"
         Me.Column3.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
         Me.Column3.HeaderText = "EK Preis"
@@ -1630,6 +1635,9 @@ Partial Class Form1
         '
         Me.Column4.DataPropertyName = "ArtikelID"
         Me.Column4.DataSource = Me.ArtikelBindingSource
+        DataGridViewCellStyle2.Format = "C2"
+        DataGridViewCellStyle2.NullValue = Nothing
+        Me.Column4.DefaultCellStyle = DataGridViewCellStyle2
         Me.Column4.DisplayMember = "VKPreis"
         Me.Column4.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
         Me.Column4.HeaderText = "VK Preis"
@@ -1648,7 +1656,7 @@ Partial Class Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(868, 670)
+        Me.ClientSize = New System.Drawing.Size(1285, 670)
         Me.Controls.Add(Me.NewTreeView1)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.ToolStrip1)
