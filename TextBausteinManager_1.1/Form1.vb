@@ -67,21 +67,15 @@ Public Class Form1
         With DataGridView5.RowsDefaultCellStyle
             .Font = New Font(DataGridView5.Font, FontStyle.Regular)
         End With
-        'DataGridView5.Columns(0).Visible = False
-        'DataGridView5.Columns(1).Visible = False
-        'DataGridView5.Columns(2).Visible = False
     End Sub
 
     Sub InitHMI()
-        'DataTable1BindingSource.Filter = "AG_selected = 1"
-        'Spaltenansicht im Datagridview2 einstellen
         With DataGridView5
             .RowsDefaultCellStyle.BackColor = Color.Bisque
             .AlternatingRowsDefaultCellStyle.BackColor = Color.Beige
         End With
         'Vorlagen Dokumente in Combobox laden
         Dim OrtEigeneDateien As String = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
-        'MessageBox.Show(OrtEigeneDateien)
         Dim Dir As New DirectoryInfo(OrtEigeneDateien & "\Benutzerdefinierte Office-Vorlagen\")
         For Each file As FileInfo In Dir.GetFiles
             If Microsoft.VisualBasic.Left(file.Name, 1) <> "~" Then
@@ -92,7 +86,13 @@ Public Class Form1
         TreeView_actualize()
         GroupBox2.Text = "Artikel (" & DataSet1.Artikel.Rows.Count & ")" 'Anzahl Artikel
         GroupBox3.Text = "Kunde (" & DataSet1.Kunde.Rows.Count & ")" 'Anzahl Kunden
-
+        If NewTreeView1.Nodes.Count > 0 Then
+            Dim tn As TreeNode = NewTreeView1.Nodes(0)
+            NewTreeView1.SelectedNode = tn
+            NewTreeView1.Select()
+            NewTreeView1.Focus()
+        End If
+        Me.DataGridView5.Sort(Me.DataGridView5.Columns(7), System.ComponentModel.ListSortDirection.Ascending)
     End Sub
 #End Region
 
@@ -209,7 +209,7 @@ Public Class Form1
 
                     NewARow = DataSet1.Artikel.NewArtikelRow()
                     NewARow.ArtikelID = newNode.Name
-                    NewARow.Artikelnummer = newNode.Text
+
                     NewARow.ProduktID = CBox_Produkt.SelectedValue 'Verknüpfung zum Produkt erstellen
                     DataSet1.Artikel.Rows.Add(NewARow)
                     TBox_NodeText.Text = newNode.Text
@@ -588,16 +588,6 @@ Public Class Form1
                 End If
             Next
         End If
-        If MaskedTBox_EK.Text <> "" Then
-            MaskedTBox_EK.Text = String.Format("{0:C2}", CDbl(MaskedTBox_EK.Text)) 'Formatierung mit Währungszeichen
-        Else
-            MaskedTBox_EK.Text = "0,00 €"
-        End If
-        If MaskedTBox_VK.Text <> "" Then
-            MaskedTBox_VK.Text = String.Format("{0:C2}", CDbl(MaskedTBox_VK.Text)) 'Formatierung mit Währungszeichen
-        Else
-            MaskedTBox_VK.Text = "0,00 €"
-        End If
     End Sub
 
     Private Sub DataGridView5_MouseClick(sender As Object, e As MouseEventArgs) Handles DataGridView5.MouseClick
@@ -611,41 +601,59 @@ Public Class Form1
                 NewTreeView1.SelectedNode.Expand()
             End If
         End If
+
     End Sub
 
     Private Sub CBox_Produkt_DropDownClosed(sender As Object, e As EventArgs) Handles CBox_Produkt.DropDownClosed
         NewTreeView1.SelectedNode = NewTreeView1.Nodes.Find(CBox_Produkt.SelectedValue, True)(0)
         NewTreeView1.Select()
         NewTreeView1.SelectedNode.Expand()
+        Me.DataGridView5.Sort(Me.DataGridView5.Columns(7), System.ComponentModel.ListSortDirection.Ascending)
     End Sub
 
     Private Sub CBox_Hersteller_DropDownClosed(sender As Object, e As EventArgs) Handles CBox_Hersteller.DropDownClosed
         NewTreeView1.SelectedNode = NewTreeView1.Nodes.Find(CBox_Hersteller.SelectedValue, True)(0)
         NewTreeView1.Select()
         NewTreeView1.SelectedNode.Expand()
+        Me.DataGridView5.Sort(Me.DataGridView5.Columns(7), System.ComponentModel.ListSortDirection.Ascending)
     End Sub
 
     Private Sub Btn_URL_Artikel_Click(sender As Object, e As EventArgs) Handles Btn_URL_Artikel.Click
+        URL_ArticleCheck()
+    End Sub
+
+    Sub URL_ArticleCheck()
         Dim row As DataSet1.ArtikelRow = Nothing
         Dim strFile As String = ""
         OpenFileDialog1.FileName = ""
-        If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
-            strFile = OpenFileDialog1.FileName.ToString
-            TBox_URL_Artikel.Text = strFile
-            If File.Exists(TBox_URL_Artikel.Text) Then
-                NewTreeView1.SelectedNode.ImageIndex = 2
-                NewTreeView1.SelectedNode.SelectedImageIndex = 2
+        If NewTreeView1.SelectedNode IsNot Nothing Then
+            If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+                strFile = OpenFileDialog1.FileName.ToString
+                TBox_URL_Artikel.Text = strFile
+                If File.Exists(TBox_URL_Artikel.Text) Then
+                    NewTreeView1.SelectedNode.ImageIndex = 2
+                    NewTreeView1.SelectedNode.SelectedImageIndex = 2
+                Else
+                    NewTreeView1.SelectedNode.ImageIndex = 3
+                    NewTreeView1.SelectedNode.SelectedImageIndex = 3
+                End If
             Else
-                NewTreeView1.SelectedNode.ImageIndex = 3
-                NewTreeView1.SelectedNode.SelectedImageIndex = 3
+                MsgBox("Aktion durch Benutzer abgebrochen!", vbExclamation)
             End If
-        Else
-            MsgBox("Aktion durch Benutzer abgebrochen!", vbExclamation)
         End If
     End Sub
+
+
+
 #End Region
 
 #Region "Produktstruktur und Dataset speichern oder speichern unter sowie öffnen"
+    Private Sub ProduktstrukturNeuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProduktstrukturNeuToolStripMenuItem.Click
+        Save_product_structure()
+        NewTreeView1.Nodes.Clear()
+    End Sub
+
+
     Private Sub ProduktstrukturÖffnenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProduktstrukturÖffnenToolStripMenuItem.Click
         Open_product_structure()
     End Sub
@@ -667,16 +675,20 @@ Public Class Form1
     End Sub
 
     Private Sub Save_product_structure()
-        If TBMStructure = True Then
-            Dim _DataTree As New FileInfo(Dateiname_tree)
-            XMLp.exportTreeViewXML(NewTreeView1, _DataTree.FullName)
-            'Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data_" & Path.GetFileNameWithoutExtension(Dateiname_tree) & ".xml")
-            Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data.xml")
-            DataSet1.WriteXml(_DataFile.FullName)
+        If Dateiname_tree <> "" Then
+            If TBMStructure = True Then
+                Dim _DataTree As New FileInfo(Dateiname_tree)
+                XMLp.exportTreeViewXML(NewTreeView1, _DataTree.FullName)
+                'Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data_" & Path.GetFileNameWithoutExtension(Dateiname_tree) & ".xml")
+                Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data.xml")
+                DataSet1.WriteXml(_DataFile.FullName)
+            Else
+                Save_product_structure_under()
+            End If
+            Me.Text = "TBM Manager - for Nagel WZM GmbH (c)FM2017"
         Else
             Save_product_structure_under()
         End If
-        Me.Text = "TBM Manager - for Nagel WZM GmbH (c)FM2017"
     End Sub
 
     Private Sub Save_product_structure_under()
@@ -692,29 +704,39 @@ Public Class Form1
     End Sub
 
     Private Sub Open_product_structure()
-        Dim openFileDialog1 As New OpenFileDialog()
-        openFileDialog1.Filter = "Cursor Files|*.xml"
-        openFileDialog1.Title = "Bitte eine Produktstruktur auswählen"
-        If TBMStructure = True Then Save_product_structure() ' bestehende Produktstruktur abspeichern!
-        If openFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
-            Dateiname_tree = openFileDialog1.FileName
-            Dim _DataTree As New FileInfo(Dateiname_tree)
-            'Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data_" & Path.GetFileNameWithoutExtension(Dateiname_tree) & ".xml")
-            Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data.xml")
-            DataSet1.ReadXml(_DataFile.FullName)
-            NewTreeView1.Nodes.Clear()
-            XMLp.importTreeViewXML(NewTreeView1, _DataTree.FullName)
-            If Not _DataFile.Exists Then Return
-            'von Server auf Local wechseln
-            If FilePath = "lokal" Then
-                'SwitchFilePathRead()
+        If TBMStructure = False Then
+            Dim openFileDialog1 As New OpenFileDialog()
+            openFileDialog1.Filter = "Cursor Files|*.xml"
+            openFileDialog1.Title = "Bitte eine Produktstruktur auswählen"
+            If TBMStructure = True Then Save_product_structure() ' bestehende Produktstruktur abspeichern!
+            If openFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+                Dateiname_tree = openFileDialog1.FileName
+                Dim _DataTree As New FileInfo(Dateiname_tree)
+                'Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data_" & Path.GetFileNameWithoutExtension(Dateiname_tree) & ".xml")
+                Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data.xml")
+                DataSet1.ReadXml(_DataFile.FullName)
+                NewTreeView1.Nodes.Clear()
+                XMLp.importTreeViewXML(NewTreeView1, _DataTree.FullName)
+                If Not _DataFile.Exists Then Return
+                'von Server auf Local wechseln
+                If FilePath = "lokal" Then
+                    'SwitchFilePathRead()
+                End If
+                TBMStructure = True
             End If
-            TBMStructure = True
+            VT_edit = True
+            ' DataView für Artikeldaten aus Artikel Tabelle erstellen.
+            InitHMI()
+        Else
+            MsgBox("Es ist bereits eine Produktstruktur geladen!")
         End If
-        VT_edit = True
-        ' DataView für Artikeldaten aus Artikel Tabelle erstellen.
-        InitHMI()
     End Sub
+
+
+
+
+
+
 #End Region
 
 #Region "Vertreterdaten in ComboBox einlesen bzw. editieren"
@@ -733,6 +755,14 @@ Public Class Form1
 #End Region
 
 #Region "Texbox Formatierungen erstellen"
+    Private Sub MaskedTBox_EK_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MaskedTBox_EK.KeyPress
+        Select Case Asc(e.KeyChar)
+            Case 48 To 57, 8
+            Case Else
+                e.Handled = True
+        End Select
+    End Sub
+
     Private Sub MaskedTBox_EK_TextChanged(sender As Object, e As EventArgs) Handles MaskedTBox_EK.TextChanged
         If MaskedTBox_EK.Text <> "" Then
             MaskedTBox_EK.Text = String.Format("{0:C2}", CDbl(MaskedTBox_EK.Text)) 'Formatierung mit Währungszeichen
@@ -741,16 +771,23 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub MaskedTBox_VK_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MaskedTBox_VK.KeyPress
+        Select Case Asc(e.KeyChar)
+            Case 48 To 57, 8
+            Case Else
+                e.Handled = True
+        End Select
+    End Sub
+
     Private Sub MaskedTBox_VK_TextChanged(sender As Object, e As EventArgs) Handles MaskedTBox_VK.TextChanged
         If MaskedTBox_VK.Text <> "" Then
-
             MaskedTBox_VK.Text = String.Format("{0:C2}", CDbl(MaskedTBox_VK.Text)) 'Formatierung mit Währungszeichen
         Else
             MaskedTBox_VK.Text = "0,00 €"
         End If
     End Sub
 
-    Private Sub MaskedTBox_Artikelnummer_MaskInputRejected(sender As Object, e As MaskInputRejectedEventArgs) Handles MaskedTBox_Artikelnummer.MaskInputRejected
+       Private Sub MaskedTBox_Artikelnummer_MaskInputRejected(sender As Object, e As MaskInputRejectedEventArgs) Handles MaskedTBox_Artikelnummer.MaskInputRejected
         ToolTip1.ToolTipTitle = "falsche Eingabe"
         ToolTip1.Show("nur Zahlen sind zulässig!", MaskedTBox_Artikelnummer, 3000)
     End Sub
@@ -844,9 +881,8 @@ Public Class Form1
             End If
         End If
     End Sub
+
 #End Region
-
-
     Sub NewNumberOffer()
         Dim SpezRow As DataSet1.SpezOptionenRow = Nothing
         For i = 0 To DataGridView5.Rows.Count - 1
@@ -869,7 +905,7 @@ Public Class Form1
                 MsgBox("Es können nicht gleichzeitig alle Bausteine ausgewählt werden!", vbExclamation)
             End If
         End If
-        NewNumberOffer()
+        'NewNumberOffer()
     End Sub
 
     Private Sub CheckAllChildNodes(treenode As TreeNode)
@@ -906,7 +942,6 @@ Public Class Form1
                 SpezRow.SortRow = DataGridView5.Rows.Count + 1
                 'Hier fehlen noch Daten aus der Artikel Tabelle
                 Dim ArtikelRow As DataSet1.ArtikelRow = DataSet1.Artikel.FindByArtikelID(SpezRow.ArtikelID)
-
                 DataSet1.SpezOptionen.Rows.Add(SpezRow)
             Else
                 If SelNode.Checked = False Then
@@ -919,17 +954,17 @@ Public Class Form1
                 End If
             End If
         End If
-        'NewNumberOffer()
+        NewNumberOffer()
     End Sub
 #End Region
 
 #Region "Neuen Kunden einfügen oder löschen"
     Private Sub Btn_DelCustomer_Click(sender As Object, e As EventArgs) Handles Btn_DelCustomer.Click
-        Dim KRowEdit As DataSet1.KundeRow
-        'KRowEdit = DataSet1.Kunde.FindByKundennummer(CB_Kundennummer.Text)
+        Dim KRow As DataSet1.KundeRow = Nothing
+        KRow = DataSet1.Kunde.FindByKdNummer(CB_Kundennummer.Text)
         Select Case MessageBox.Show("Wollen Sie den Kunden wirklich löschen?", "Kunde löschen", MessageBoxButtons.YesNo)
             Case DialogResult.Yes
-                KRowEdit.Delete()
+                KRow.Delete()
             Case DialogResult.No
                 MsgBox("Löschen abgebrochen", vbExclamation)
         End Select
@@ -937,51 +972,59 @@ Public Class Form1
     End Sub
 
     Private Sub Btn_AddCustomer_Click(sender As Object, e As EventArgs) Handles Btn_AddCustomer.Click
-        Dim prompt As String = String.Empty
-        Dim title As String = String.Empty
-        Dim defaultResponse As String = String.Empty
-        Dim answer As Object
-        prompt = "Kundennummer: "
-        title = "Neue Kundennummer eingeben"
-        defaultResponse = "xx-xxxxx"
-        answer = InputBox(prompt, title, defaultResponse)
-        CB_Kundennummer.Text = answer
-        If answer IsNot "" Then
-            Dim NewKRow As DataSet1.KundeRow = Nothing
-            NewKRow = DataSet1.Kunde.NewKundeRow
-            NewKRow.KundenID = "KdID_" & Guid.NewGuid.ToString
-            NewKRow.Kundennummer = answer
-            NewKRow.Firma1 = TBox_Firma1.Text
-            NewKRow.Firma2 = TBox_Firma2.Text
-            NewKRow.Name1 = TBox_Name1.Text
-            NewKRow.Name2 = TBox_Name2.Text
-            NewKRow.Strasse = TBox_Strasse.Text
-            NewKRow.PLZ = TB_PLZ.Text
-            NewKRow.Ort = TB_Ort.Text
-            DataSet1.Kunde.Rows.Add(NewKRow)
-        End If
-        GroupBox3.Text = "Kunde (" & DataSet1.Kunde.Rows.Count & ")" 'Anzahl Kunden
+        Try
+            Dim prompt As String = String.Empty
+            Dim title As String = String.Empty
+            Dim defaultResponse As String = String.Empty
+            Dim answer As Object
+            prompt = "Kundennummer: "
+            title = "Neue Kundennummer eingeben"
+            defaultResponse = "xx-xxxxx"
+            answer = InputBox(prompt, title, defaultResponse)
+            CB_Kundennummer.Text = answer
+            If answer IsNot "" Then
+                Dim NewKRow As DataSet1.KundeRow = Nothing
+                NewKRow = DataSet1.Kunde.NewKundeRow
+                NewKRow.KundenID = "KdID_" & Guid.NewGuid.ToString
+                NewKRow.KdNummer = answer
+                NewKRow.Firma1 = TBox_Firma1.Text
+                NewKRow.Firma2 = TBox_Firma2.Text
+                NewKRow.Name1 = TBox_Name1.Text
+                NewKRow.Name2 = TBox_Name2.Text
+                NewKRow.Strasse = TBox_Strasse.Text
+                NewKRow.PLZ = TB_PLZ.Text
+                NewKRow.Ort = TB_Ort.Text
+                DataSet1.Kunde.Rows.Add(NewKRow)
+            End If
+            GroupBox3.Text = "Kunde (" & DataSet1.Kunde.Rows.Count & ")" 'Anzahl Kunden
+        Catch ex As Exception
+            MsgBox("Diese Kundennummer ist bereits vorhanden!", vbExclamation)
+        End Try
     End Sub
 #End Region
 
 #Region "Neues Angebot einfügen;löschen fehlt noch"
     Private Sub Btn_AddOffer_Click(sender As Object, e As EventArgs) Handles Btn_AddOffer.Click
-        Dim prompt As String = String.Empty
-        Dim title As String = String.Empty
-        Dim defaultResponse As String = String.Empty
-        Dim answer As Object
-        prompt = "Angebotsnummer: "
-        title = "Neue Angebotsnummer eingeben"
-        defaultResponse = "wmXXX-XX"
-        answer = InputBox(prompt, title, defaultResponse)
-        If answer IsNot "" Then
-            Dim NewAGRow As DataSet1.AngebotRow = Nothing
-            NewAGRow = DataSet1.Angebot.NewAngebotRow
-            NewAGRow.Angebotsnummer = answer
-            NewAGRow.Kundennummer = CB_Kundennummer.Text
-            NewAGRow.AngebotURL = "noch nicht definiert"
-            DataSet1.Angebot.Rows.Add(NewAGRow)
-        End If
+        Try
+            Dim prompt As String = String.Empty
+            Dim title As String = String.Empty
+            Dim defaultResponse As String = String.Empty
+            Dim answer As Object
+            prompt = "Angebotsnummer: "
+            title = "Neue Angebotsnummer eingeben"
+            defaultResponse = "wmXXX-XX"
+            answer = InputBox(prompt, title, defaultResponse)
+            If answer IsNot "" Then
+                Dim NewAGRow As DataSet1.AngebotRow = Nothing
+                NewAGRow = DataSet1.Angebot.NewAngebotRow
+                NewAGRow.Angebotsnummer = answer
+                NewAGRow.Kundennummer = CB_Kundennummer.Text
+                NewAGRow.AngebotURL = "noch nicht definiert"
+                DataSet1.Angebot.Rows.Add(NewAGRow)
+            End If
+        Catch ex As Exception
+            MsgBox("Diese Angebotsnummer ist bereits vorhanden!", vbExclamation)
+        End Try
     End Sub
 #End Region
 
@@ -1022,6 +1065,45 @@ Public Class Form1
         Form3.Show()
     End Sub
 
+    Private Sub BTN_up_Click(sender As Object, e As EventArgs) Handles BTN_up.Click
+        Me.DataGridView5.Sort(Me.DataGridView5.Columns(7), System.ComponentModel.ListSortDirection.Ascending)
+        Dim Idx As DataSet1.SpezOptionenRow = FKAngebotSpezOptionenBindingSource.Item(FKAngebotSpezOptionenBindingSource.Position).row
+        DataGridView5.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        If DataGridView5.CurrentRow.Index > 0 Then
+            Dim DRx As DataSet1.SpezOptionenRow = FKAngebotSpezOptionenBindingSource.Item(FKAngebotSpezOptionenBindingSource.Position - 1).row
+            Dim Index_DRx As Integer
+            Dim Index_Idx As Integer
+            If Idx.SortRow = DRx.SortRow Then
+                If DRx.SortRow > 1 Then
+                    DRx.SortRow = DRx.SortRow - 1
+                End If
+            End If
+            Index_DRx = DRx.SortRow
+            Index_Idx = Idx.SortRow
+            DRx.SortRow = Index_Idx
+            Idx.SortRow = Index_DRx
+        End If
+    End Sub
+
+    Private Sub BTN_down_Click(sender As Object, e As EventArgs) Handles BTN_down.Click
+        Me.DataGridView5.Sort(Me.DataGridView5.Columns(7), System.ComponentModel.ListSortDirection.Ascending)
+        Dim Idx As DataSet1.SpezOptionenRow = FKAngebotSpezOptionenBindingSource.Item(FKAngebotSpezOptionenBindingSource.Position).row
+        DataGridView5.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        If DataGridView5.CurrentRow.Index < DataGridView5.Rows.Count - 1 Then
+            Dim DRx As DataSet1.SpezOptionenRow = FKAngebotSpezOptionenBindingSource.Item(FKAngebotSpezOptionenBindingSource.Position + 1).row
+            Dim Index_DRx As Integer
+            Dim Index_Idx As Integer
+            If Idx.SortRow = DRx.SortRow Then
+                If DRx.SortRow > 1 Then
+                    DRx.SortRow = DRx.SortRow + 1
+                End If
+            End If
+            Index_DRx = DRx.SortRow
+            Index_Idx = Idx.SortRow
+            DRx.SortRow = Index_Idx
+            Idx.SortRow = Index_DRx
+        End If
+    End Sub
 
 
 

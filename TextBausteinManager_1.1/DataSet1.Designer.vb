@@ -352,7 +352,7 @@ Partial Public Class DataSet1
         Me.tableSpezOptionen = New SpezOptionenDataTable()
         MyBase.Tables.Add(Me.tableSpezOptionen)
         Dim fkc As Global.System.Data.ForeignKeyConstraint
-        fkc = New Global.System.Data.ForeignKeyConstraint("FK_Kunde_Angebot", New Global.System.Data.DataColumn() {Me.tableKunde.KundennummerColumn}, New Global.System.Data.DataColumn() {Me.tableAngebot.KundennummerColumn})
+        fkc = New Global.System.Data.ForeignKeyConstraint("FK_Kunde_Angebot", New Global.System.Data.DataColumn() {Me.tableKunde.KdNummerColumn}, New Global.System.Data.DataColumn() {Me.tableAngebot.KundennummerColumn})
         Me.tableAngebot.Constraints.Add(fkc)
         fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
         fkc.DeleteRule = Global.System.Data.Rule.Cascade
@@ -367,7 +367,7 @@ Partial Public Class DataSet1
         fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
         fkc.DeleteRule = Global.System.Data.Rule.Cascade
         fkc.UpdateRule = Global.System.Data.Rule.Cascade
-        Me.relationFK_Kunde_Angebot = New Global.System.Data.DataRelation("FK_Kunde_Angebot", New Global.System.Data.DataColumn() {Me.tableKunde.KundennummerColumn}, New Global.System.Data.DataColumn() {Me.tableAngebot.KundennummerColumn}, false)
+        Me.relationFK_Kunde_Angebot = New Global.System.Data.DataRelation("FK_Kunde_Angebot", New Global.System.Data.DataColumn() {Me.tableKunde.KdNummerColumn}, New Global.System.Data.DataColumn() {Me.tableAngebot.KundennummerColumn}, false)
         Me.Relations.Add(Me.relationFK_Kunde_Angebot)
         Me.relationFK_Artikel_SpezOptionen = New Global.System.Data.DataRelation("FK_Artikel_SpezOptionen", New Global.System.Data.DataColumn() {Me.tableArtikel.ArtikelIDColumn}, New Global.System.Data.DataColumn() {Me.tableSpezOptionen.ArtikelIDColumn}, false)
         Me.Relations.Add(Me.relationFK_Artikel_SpezOptionen)
@@ -823,7 +823,7 @@ Partial Public Class DataSet1
         
         Private columnURL As Global.System.Data.DataColumn
         
-        Private columnArtikelnummer As Global.System.Data.DataColumn
+        Private columnArtikelnr As Global.System.Data.DataColumn
         
         Private columnRubrik As Global.System.Data.DataColumn
         
@@ -908,9 +908,9 @@ Partial Public Class DataSet1
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public ReadOnly Property ArtikelnummerColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property ArtikelnrColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnArtikelnummer
+                Return Me.columnArtikelnr
             End Get
         End Property
         
@@ -1007,9 +1007,9 @@ Partial Public Class DataSet1
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Overloads Function AddArtikelRow(ByVal ArtikelID As String, ByVal parentProduktRowByProdukt_Artikel As ProduktRow, ByVal lfdNrPosAG As Short, ByVal URL As String, ByVal Artikelnummer As String, ByVal Rubrik As String, ByVal Artikelkurztext As String, ByVal Beschreibung As String, ByVal EKPreis As Double, ByVal VKPreis As Double, ByVal Faktor As String, ByVal AGSelected As Boolean) As ArtikelRow
+        Public Overloads Function AddArtikelRow(ByVal ArtikelID As String, ByVal parentProduktRowByProdukt_Artikel As ProduktRow, ByVal lfdNrPosAG As Short, ByVal URL As String, ByVal Artikelnr As Integer, ByVal Rubrik As String, ByVal Artikelkurztext As String, ByVal Beschreibung As String, ByVal EKPreis As Double, ByVal VKPreis As Double, ByVal Faktor As String, ByVal AGSelected As Boolean) As ArtikelRow
             Dim rowArtikelRow As ArtikelRow = CType(Me.NewRow,ArtikelRow)
-            Dim columnValuesArray() As Object = New Object() {ArtikelID, Nothing, lfdNrPosAG, URL, Artikelnummer, Rubrik, Artikelkurztext, Beschreibung, EKPreis, VKPreis, Faktor, AGSelected}
+            Dim columnValuesArray() As Object = New Object() {ArtikelID, Nothing, lfdNrPosAG, URL, Artikelnr, Rubrik, Artikelkurztext, Beschreibung, EKPreis, VKPreis, Faktor, AGSelected}
             If (Not (parentProduktRowByProdukt_Artikel) Is Nothing) Then
                 columnValuesArray(1) = parentProduktRowByProdukt_Artikel(0)
             End If
@@ -1045,7 +1045,7 @@ Partial Public Class DataSet1
             Me.columnProduktID = MyBase.Columns("ProduktID")
             Me.columnlfdNrPosAG = MyBase.Columns("lfdNrPosAG")
             Me.columnURL = MyBase.Columns("URL")
-            Me.columnArtikelnummer = MyBase.Columns("Artikelnummer")
+            Me.columnArtikelnr = MyBase.Columns("Artikelnr")
             Me.columnRubrik = MyBase.Columns("Rubrik")
             Me.columnArtikelkurztext = MyBase.Columns("Artikelkurztext")
             Me.columnBeschreibung = MyBase.Columns("Beschreibung")
@@ -1066,8 +1066,8 @@ Partial Public Class DataSet1
             MyBase.Columns.Add(Me.columnlfdNrPosAG)
             Me.columnURL = New Global.System.Data.DataColumn("URL", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnURL)
-            Me.columnArtikelnummer = New Global.System.Data.DataColumn("Artikelnummer", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnArtikelnummer)
+            Me.columnArtikelnr = New Global.System.Data.DataColumn("Artikelnr", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnArtikelnr)
             Me.columnRubrik = New Global.System.Data.DataColumn("Rubrik", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnRubrik)
             Me.columnArtikelkurztext = New Global.System.Data.DataColumn("Artikelkurztext", GetType(String), Nothing, Global.System.Data.MappingType.Element)
@@ -1794,7 +1794,7 @@ Partial Public Class DataSet1
         
         Private columnKundenID As Global.System.Data.DataColumn
         
-        Private columnKundennummer As Global.System.Data.DataColumn
+        Private columnKdNummer As Global.System.Data.DataColumn
         
         Private columnFirma1 As Global.System.Data.DataColumn
         
@@ -1857,9 +1857,9 @@ Partial Public Class DataSet1
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public ReadOnly Property KundennummerColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property KdNummerColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnKundennummer
+                Return Me.columnKdNummer
             End Get
         End Property
         
@@ -1964,9 +1964,9 @@ Partial Public Class DataSet1
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Overloads Function AddKundeRow(ByVal KundenID As String, ByVal Kundennummer As String, ByVal Firma1 As String, ByVal Firma2 As String, ByVal Name1 As String, ByVal Name2 As String, ByVal Strasse As String, ByVal PLZ As String, ByVal Ort As String, ByVal Angebotstitel As String) As KundeRow
+        Public Overloads Function AddKundeRow(ByVal KundenID As String, ByVal KdNummer As String, ByVal Firma1 As String, ByVal Firma2 As String, ByVal Name1 As String, ByVal Name2 As String, ByVal Strasse As String, ByVal PLZ As String, ByVal Ort As String, ByVal Angebotstitel As String) As KundeRow
             Dim rowKundeRow As KundeRow = CType(Me.NewRow,KundeRow)
-            Dim columnValuesArray() As Object = New Object() {KundenID, Kundennummer, Firma1, Firma2, Name1, Name2, Strasse, PLZ, Ort, Angebotstitel}
+            Dim columnValuesArray() As Object = New Object() {KundenID, KdNummer, Firma1, Firma2, Name1, Name2, Strasse, PLZ, Ort, Angebotstitel}
             rowKundeRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowKundeRow)
             Return rowKundeRow
@@ -1974,8 +1974,8 @@ Partial Public Class DataSet1
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Function FindByKundenID(ByVal KundenID As String) As KundeRow
-            Return CType(Me.Rows.Find(New Object() {KundenID}),KundeRow)
+        Public Function FindByKdNummer(ByVal KdNummer As String) As KundeRow
+            Return CType(Me.Rows.Find(New Object() {KdNummer}),KundeRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1996,7 +1996,7 @@ Partial Public Class DataSet1
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnKundenID = MyBase.Columns("KundenID")
-            Me.columnKundennummer = MyBase.Columns("Kundennummer")
+            Me.columnKdNummer = MyBase.Columns("KdNummer")
             Me.columnFirma1 = MyBase.Columns("Firma1")
             Me.columnFirma2 = MyBase.Columns("Firma2")
             Me.columnName1 = MyBase.Columns("Name1")
@@ -2012,8 +2012,8 @@ Partial Public Class DataSet1
         Private Sub InitClass()
             Me.columnKundenID = New Global.System.Data.DataColumn("KundenID", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnKundenID)
-            Me.columnKundennummer = New Global.System.Data.DataColumn("Kundennummer", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnKundennummer)
+            Me.columnKdNummer = New Global.System.Data.DataColumn("KdNummer", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnKdNummer)
             Me.columnFirma1 = New Global.System.Data.DataColumn("Firma1", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnFirma1)
             Me.columnFirma2 = New Global.System.Data.DataColumn("Firma2", GetType(String), Nothing, Global.System.Data.MappingType.Element)
@@ -2030,13 +2030,11 @@ Partial Public Class DataSet1
             MyBase.Columns.Add(Me.columnOrt)
             Me.columnAngebotstitel = New Global.System.Data.DataColumn("Angebotstitel", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnAngebotstitel)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnKundenID}, true))
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint2", New Global.System.Data.DataColumn() {Me.columnKundennummer}, false))
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnKdNummer}, true))
             Me.columnKundenID.AutoIncrementSeed = 1
             Me.columnKundenID.AllowDBNull = false
-            Me.columnKundenID.Unique = true
-            Me.columnKundennummer.AllowDBNull = false
-            Me.columnKundennummer.Unique = true
+            Me.columnKdNummer.AllowDBNull = false
+            Me.columnKdNummer.Unique = true
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2703,16 +2701,16 @@ Partial Public Class DataSet1
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Property Artikelnummer() As String
+        Public Property Artikelnr() As Integer
             Get
-                If Me.IsArtikelnummerNull Then
-                    Return String.Empty
-                Else
-                    Return CType(Me(Me.tableArtikel.ArtikelnummerColumn),String)
-                End If
+                Try 
+                    Return CType(Me(Me.tableArtikel.ArtikelnrColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("Der Wert für Spalte Artikelnr in Tabelle Artikel ist DBNull.", e)
+                End Try
             End Get
             Set
-                Me(Me.tableArtikel.ArtikelnummerColumn) = value
+                Me(Me.tableArtikel.ArtikelnrColumn) = value
             End Set
         End Property
         
@@ -2870,14 +2868,14 @@ Partial Public Class DataSet1
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Function IsArtikelnummerNull() As Boolean
-            Return Me.IsNull(Me.tableArtikel.ArtikelnummerColumn)
+        Public Function IsArtikelnrNull() As Boolean
+            Return Me.IsNull(Me.tableArtikel.ArtikelnrColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Sub SetArtikelnummerNull()
-            Me(Me.tableArtikel.ArtikelnummerColumn) = Global.System.Convert.DBNull
+        Public Sub SetArtikelnrNull()
+            Me(Me.tableArtikel.ArtikelnrColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -3212,12 +3210,12 @@ Partial Public Class DataSet1
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Property Kundennummer() As String
+        Public Property KdNummer() As String
             Get
-                Return CType(Me(Me.tableKunde.KundennummerColumn),String)
+                Return CType(Me(Me.tableKunde.KdNummerColumn),String)
             End Get
             Set
-                Me(Me.tableKunde.KundennummerColumn) = value
+                Me(Me.tableKunde.KdNummerColumn) = value
             End Set
         End Property
         
