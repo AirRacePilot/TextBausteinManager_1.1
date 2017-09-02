@@ -70,6 +70,7 @@ Public Class Form1
     End Sub
 
     Sub InitHMI()
+        Form2.DataSet2.Vertreter.ReadXml(VT_DataFile.FullName)
         With DataGridView5
             .RowsDefaultCellStyle.BackColor = Color.Bisque
             .AlternatingRowsDefaultCellStyle.BackColor = Color.Beige
@@ -82,17 +83,14 @@ Public Class Form1
                 CBox_DokVorlage.Items.Add(file.Name)
             End If
         Next
-        Form2.DataSet2.Vertreter.ReadXml(VT_DataFile.FullName)
         TreeView_actualize()
         GroupBox2.Text = "Artikel (" & DataSet1.Artikel.Rows.Count & ")" 'Anzahl Artikel
         GroupBox3.Text = "Kunde (" & DataSet1.Kunde.Rows.Count & ")" 'Anzahl Kunden
-        If NewTreeView1.Nodes.Count > 0 Then
-            Dim tn As TreeNode = NewTreeView1.Nodes(0)
-            NewTreeView1.SelectedNode = tn
-            NewTreeView1.Select()
-            NewTreeView1.Focus()
-        End If
-        Me.DataGridView5.Sort(Me.DataGridView5.Columns(7), System.ComponentModel.ListSortDirection.Ascending)
+        Dim tn As TreeNode = NewTreeView1.Nodes(0)
+        NewTreeView1.SelectedNode = tn
+        NewTreeView1.Select()
+        NewTreeView1.Focus()
+        'Me.DataGridView5.Sort(Me.DataGridView5.Columns(7), System.ComponentModel.ListSortDirection.Ascending)
     End Sub
 #End Region
 
@@ -101,7 +99,6 @@ Public Class Form1
     End Sub
 
 #Region "Hersteller, Produkt und Artikel im TreeView hinzufügen oder löschen; TSB=ToolStripButton"
-
     Private Sub TSB_AddManufacturerNode_Click(sender As Object, e As EventArgs) Handles TSB_AddManufacturerNode.Click
         Dim prompt As String = String.Empty
         Dim title As String = String.Empty
@@ -263,7 +260,9 @@ Public Class Form1
     End Sub
 
     Private Sub NewTreeView1_ItemDrag(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemDragEventArgs) Handles NewTreeView1.ItemDrag
-        DoDragDrop(e.Item, DragDropEffects.Move)
+        If Me.NewTreeView1.SelectedNode.Tag <> "manufacturer" Then
+            DoDragDrop(e.Item, DragDropEffects.Move)
+        End If
     End Sub
 
     Private Sub NewTreeView1_DragEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DragEventArgs) Handles NewTreeView1.DragEnter
@@ -548,6 +547,20 @@ Public Class Form1
         TBox_NodeTag.Text = NewTreeView1.SelectedNode.Tag
         TBox_NodeImageIndex.Text = CStr(NewTreeView1.SelectedNode.ImageIndex)
         TBox_NodeSelImageIndex.Text = CStr(NewTreeView1.SelectedNode.SelectedImageIndex)
+
+        'wenn der NAme des Knoten geändert wird im Dataset speichern
+
+        If NewTreeView1.SelectedNode.Tag = "manufacturer" Then
+            Dim NewHerstellerRow As DataSet1.HerstellerRow
+            NewHerstellerRow = DataSet1.Hersteller.FindByHerstellerID(NewTreeView1.SelectedNode.Name)
+            NewHerstellerRow.Hersteller = NewTreeView1.SelectedNode.Text
+        End If
+        If NewTreeView1.SelectedNode.Tag = "product" Then
+            Dim NewProduktRow As DataSet1.ProduktRow
+            NewProduktRow = DataSet1.Produkt.FindByProduktID(NewTreeView1.SelectedNode.Name)
+            NewProduktRow.ProduktTyp = NewTreeView1.SelectedNode.Text
+        End If
+
     End Sub
 
     Sub ArticleHMI(NodeTag As String)
@@ -643,14 +656,14 @@ Public Class Form1
         End If
     End Sub
 
-
-
 #End Region
 
 #Region "Produktstruktur und Dataset speichern oder speichern unter sowie öffnen"
     Private Sub ProduktstrukturNeuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProduktstrukturNeuToolStripMenuItem.Click
         Save_product_structure()
+        TBMStructure = True
         NewTreeView1.Nodes.Clear()
+        Save_product_structure_under()
     End Sub
 
 
@@ -712,23 +725,22 @@ Public Class Form1
             If openFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
                 Dateiname_tree = openFileDialog1.FileName
                 Dim _DataTree As New FileInfo(Dateiname_tree)
-                'Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data_" & Path.GetFileNameWithoutExtension(Dateiname_tree) & ".xml")
                 Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data.xml")
-                DataSet1.ReadXml(_DataFile.FullName)
-                NewTreeView1.Nodes.Clear()
-                XMLp.importTreeViewXML(NewTreeView1, _DataTree.FullName)
                 If Not _DataFile.Exists Then Return
-                'von Server auf Local wechseln
-                If FilePath = "lokal" Then
-                    'SwitchFilePathRead()
+                NewTreeView1.Nodes.Clear()
+                DataSet1.ReadXml(_DataFile.FullName)
+                XMLp.importTreeViewXML(NewTreeView1, _DataTree.FullName)
+                If NewTreeView1.Nodes.Count > 0 Then
+                    InitHMI()
+                    TBMStructure = True
                 End If
-                TBMStructure = True
             End If
-            VT_edit = True
-            ' DataView für Artikeldaten aus Artikel Tabelle erstellen.
-            InitHMI()
         Else
-            MsgBox("Es ist bereits eine Produktstruktur geladen!")
+            Save_product_structure()
+            TBMStructure = False
+            DataSet1.Clear()
+            Form2.DataSet2.Clear()
+            Open_product_structure()
         End If
     End Sub
 
@@ -857,9 +869,14 @@ Public Class Form1
                 mySelectedNode.BeginEdit()
             End If
         End If
+
     End Sub
 
-    Private Sub NewTreeView1_AfterLabelEdit(sender As Object, e As NodeLabelEditEventArgs)
+
+
+
+
+    Private Sub NewTreeView1_AfterLabelEdit_1(sender As Object, e As NodeLabelEditEventArgs) Handles NewTreeView1.AfterLabelEdit
         If Not (e.Label Is Nothing) Then
             If e.Label.Length > 0 Then
                 If e.Label.IndexOfAny(New Char() {"@"c, "."c, ","c, "!"c}) = -1 Then
@@ -881,6 +898,8 @@ Public Class Form1
             End If
         End If
     End Sub
+
+
 
 #End Region
     Sub NewNumberOffer()
@@ -931,30 +950,32 @@ Public Class Form1
     Private Sub SeleNodeCheck(SelNode As TreeNode)
         Dim SpezRow As DataSet1.SpezOptionenRow = Nothing
         Dim InOffer As Boolean = False
-        SpezRow = DataSet1.SpezOptionen.NewSpezOptionenRow
-        If SelNode IsNot Nothing Then
-            If SelNode.Checked = True Then
-                'row.AGSelected = "true"
-                'hier neue Artikel im Angebot einfügen
-                SpezRow.Angebotsnummer = CB_Angebotsnummer.Text
-                SpezRow.ArtikelID = SelNode.Name
-                SpezRow.OptionID = CStr(Guid.NewGuid.ToString)
-                SpezRow.SortRow = DataGridView5.Rows.Count + 1
-                'Hier fehlen noch Daten aus der Artikel Tabelle
-                Dim ArtikelRow As DataSet1.ArtikelRow = DataSet1.Artikel.FindByArtikelID(SpezRow.ArtikelID)
-                DataSet1.SpezOptionen.Rows.Add(SpezRow)
-            Else
-                If SelNode.Checked = False Then
-                    'hier selektierten Artikel aus Angebot entfernen
-                    For Each SpezRow In DataSet1.SpezOptionen.Select("ArtikelID = '" & SelNode.Name & "'")
-                        If SpezRow.Angebotsnummer = CB_Angebotsnummer.Text Then
-                            SpezRow.Delete()
-                        End If
-                    Next
+        If CB_Angebotsnummer.Text <> "" Then
+            SpezRow = DataSet1.SpezOptionen.NewSpezOptionenRow
+            If SelNode IsNot Nothing Then
+                If SelNode.Checked = True Then
+                    'row.AGSelected = "true"
+                    'hier neue Artikel im Angebot einfügen
+                    SpezRow.Angebotsnummer = CB_Angebotsnummer.Text
+                    SpezRow.ArtikelID = SelNode.Name
+                    SpezRow.OptionID = CStr(Guid.NewGuid.ToString)
+                    SpezRow.SortRow = DataGridView5.Rows.Count + 1
+                    'Hier fehlen noch Daten aus der Artikel Tabelle
+                    Dim ArtikelRow As DataSet1.ArtikelRow = DataSet1.Artikel.FindByArtikelID(SpezRow.ArtikelID)
+                    DataSet1.SpezOptionen.Rows.Add(SpezRow)
+                Else
+                    If SelNode.Checked = False Then
+                        'hier selektierten Artikel aus Angebot entfernen
+                        For Each SpezRow In DataSet1.SpezOptionen.Select("ArtikelID = '" & SelNode.Name & "'")
+                            If SpezRow.Angebotsnummer = CB_Angebotsnummer.Text Then
+                                SpezRow.Delete()
+                            End If
+                        Next
+                    End If
                 End If
             End If
+            NewNumberOffer()
         End If
-        NewNumberOffer()
     End Sub
 #End Region
 
@@ -1104,6 +1125,7 @@ Public Class Form1
             Idx.SortRow = Index_DRx
         End If
     End Sub
+
 
 
 
