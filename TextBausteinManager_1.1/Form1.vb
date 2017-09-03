@@ -71,7 +71,8 @@ Public Class Form1
     End Sub
 
     Sub InitHMI()
-        Form2.DataSet2.Vertreter.ReadXml(VT_DataFile.FullName)
+        VT_edit=true
+        'Form2.DataSet2.Vertreter.ReadXml(VT_DataFile.FullName)
         With DataGridView5
             .RowsDefaultCellStyle.BackColor = Color.Bisque
             .AlternatingRowsDefaultCellStyle.BackColor = Color.Beige
@@ -79,7 +80,8 @@ Public Class Form1
         'Vorlagen Dokumente in Combobox laden
         Dim OrtEigeneDateien As String = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
         Dim Dir As New DirectoryInfo(OrtEigeneDateien & "\Benutzerdefinierte Office-Vorlagen\")
-        For Each file As FileInfo In Dir.GetFiles
+        CBox_DokVorlage.Items.clear      
+            For Each file As FileInfo In Dir.GetFiles 
             If Microsoft.VisualBasic.Left(file.Name, 1) <> "~" Then
                 CBox_DokVorlage.Items.Add(file.Name)
             End If
@@ -740,7 +742,7 @@ Public Class Form1
             Save_product_structure()
             TBMStructure = False
             DataSet1.Clear()
-            Form2.DataSet2.Clear()
+           ' Form2.DataSet2.Clear()
             Open_product_structure()
         End If
     End Sub
