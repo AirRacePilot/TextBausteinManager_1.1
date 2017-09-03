@@ -651,6 +651,7 @@ Public Class Form1
         TBMStructure = True
         NewTreeView1.Nodes.Clear()
         Dateiname_tree = ""
+        DataSet1.Clear()
         CenterAlignTitel()
     End Sub
 
