@@ -547,21 +547,8 @@ Public Class Form1
         TBox_NodeTag.Text = NewTreeView1.SelectedNode.Tag
         TBox_NodeImageIndex.Text = CStr(NewTreeView1.SelectedNode.ImageIndex)
         TBox_NodeSelImageIndex.Text = CStr(NewTreeView1.SelectedNode.SelectedImageIndex)
-
-        'wenn der NAme des Knoten geändert wird im Dataset speichern
-
-        If NewTreeView1.SelectedNode.Tag = "manufacturer" Then
-            Dim NewHerstellerRow As DataSet1.HerstellerRow
-            NewHerstellerRow = DataSet1.Hersteller.FindByHerstellerID(NewTreeView1.SelectedNode.Name)
-            NewHerstellerRow.Hersteller = NewTreeView1.SelectedNode.Text
-        End If
-        If NewTreeView1.SelectedNode.Tag = "product" Then
-            Dim NewProduktRow As DataSet1.ProduktRow
-            NewProduktRow = DataSet1.Produkt.FindByProduktID(NewTreeView1.SelectedNode.Name)
-            NewProduktRow.ProduktTyp = NewTreeView1.SelectedNode.Text
-        End If
-
     End Sub
+
 
     Sub ArticleHMI(NodeTag As String)
         If NodeTag = "article" Then
@@ -869,18 +856,33 @@ Public Class Form1
                 mySelectedNode.BeginEdit()
             End If
         End If
-
     End Sub
 
+    Private Sub AfterLabelEdit(ByVal text As String, ByVal tag As String, ByVal name As String)
+        If tag = "manufacturer" Then
+            Label8.Text = text
+            Dim NewHerstellerRow As DataSet1.HerstellerRow
+            NewHerstellerRow = DataSet1.Hersteller.FindByHerstellerID(name)
+            NewHerstellerRow.Hersteller = text
+            ' CBox_Hersteller.Text = text
+        End If
+        If tag = "product" Then
+            Dim NewProduktRow As DataSet1.ProduktRow
+            NewProduktRow = DataSet1.Produkt.FindByProduktID(name)
+            NewProduktRow.ProduktTyp = text
+        End If
+    End Sub
 
-
-
+    Delegate Sub InvokeDelegate(ByVal label As String, ByVal NodeTag As String, ByVal NodeNAme As String)
 
     Private Sub NewTreeView1_AfterLabelEdit_1(sender As Object, e As NodeLabelEditEventArgs) Handles NewTreeView1.AfterLabelEdit
+        Dim NodeTag As String = NewTreeView1.SelectedNode.Tag
+        Dim NodeName As String = NewTreeView1.SelectedNode.Name
         If Not (e.Label Is Nothing) Then
             If e.Label.Length > 0 Then
                 If e.Label.IndexOfAny(New Char() {"@"c, "."c, ","c, "!"c}) = -1 Then
                     ' Stop editing without canceling the label change.
+                    NewTreeView1.BeginInvoke(New InvokeDelegate(AddressOf AfterLabelEdit), e.Label, NodeTag, NodeName)
                     e.Node.EndEdit(False)
                 Else
                     ' Cancel the label edit action, inform the user, and
@@ -898,8 +900,6 @@ Public Class Form1
             End If
         End If
     End Sub
-
-
 
 #End Region
     Sub NewNumberOffer()
@@ -1125,6 +1125,9 @@ Public Class Form1
             Idx.SortRow = Index_DRx
         End If
     End Sub
+
+
+
 
 
 

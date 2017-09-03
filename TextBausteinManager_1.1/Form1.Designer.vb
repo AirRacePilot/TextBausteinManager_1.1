@@ -24,9 +24,9 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.DateiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProduktstrukturNeuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -188,6 +188,7 @@ Partial Class Form1
         Me.ProduktArtikelBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         Me.FKArtikelSpezOptionenBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.CMS_NewTreeView1.SuspendLayout()
@@ -491,9 +492,9 @@ Partial Class Form1
         '
         Me.Column2.DataPropertyName = "ArtikelID"
         Me.Column2.DataSource = Me.ArtikelBindingSource
-        DataGridViewCellStyle1.Format = "00-0000-0000"
-        DataGridViewCellStyle1.NullValue = Nothing
-        Me.Column2.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle7.Format = "00-0000-0000"
+        DataGridViewCellStyle7.NullValue = Nothing
+        Me.Column2.DefaultCellStyle = DataGridViewCellStyle7
         Me.Column2.DisplayMember = "Artikelnr"
         Me.Column2.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
         Me.Column2.HeaderText = "Artikelnummer"
@@ -506,9 +507,9 @@ Partial Class Form1
         '
         Me.Column3.DataPropertyName = "ArtikelID"
         Me.Column3.DataSource = Me.ArtikelBindingSource
-        DataGridViewCellStyle2.Format = "C2"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.Column3.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle8.Format = "C2"
+        DataGridViewCellStyle8.NullValue = Nothing
+        Me.Column3.DefaultCellStyle = DataGridViewCellStyle8
         Me.Column3.DisplayMember = "EKPreis"
         Me.Column3.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
         Me.Column3.HeaderText = "EK Preis"
@@ -521,9 +522,9 @@ Partial Class Form1
         '
         Me.Column4.DataPropertyName = "ArtikelID"
         Me.Column4.DataSource = Me.ArtikelBindingSource
-        DataGridViewCellStyle3.Format = "C2"
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.Column4.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle9.Format = "C2"
+        DataGridViewCellStyle9.NullValue = Nothing
+        Me.Column4.DefaultCellStyle = DataGridViewCellStyle9
         Me.Column4.DisplayMember = "VKPreis"
         Me.Column4.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
         Me.Column4.HeaderText = "VK Preis"
@@ -922,6 +923,7 @@ Partial Class Form1
         '
         'TabPage2
         '
+        Me.TabPage2.Controls.Add(Me.Label8)
         Me.TabPage2.Controls.Add(Me.GroupBox5)
         Me.TabPage2.Controls.Add(Me.GroupBox2)
         Me.TabPage2.Location = New System.Drawing.Point(4, 25)
@@ -1702,6 +1704,16 @@ Partial Class Form1
         Me.SplitContainer1.SplitterDistance = 428
         Me.SplitContainer1.TabIndex = 8
         '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.HerstellerBindingSource, "Hersteller", True))
+        Me.Label8.Location = New System.Drawing.Point(652, 52)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(49, 16)
+        Me.Label8.TabIndex = 12
+        Me.Label8.Text = "Label8"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1734,6 +1746,7 @@ Partial Class Form1
         CType(Me.VertreterBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataSet2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
+        Me.TabPage2.PerformLayout()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
@@ -1936,4 +1949,5 @@ Partial Class Form1
     Friend WithEvents AngebotsnummerDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents ArtikelIDDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents SortRowDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents Label8 As Label
 End Class
