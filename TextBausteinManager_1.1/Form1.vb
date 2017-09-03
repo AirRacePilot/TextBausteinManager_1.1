@@ -694,7 +694,7 @@ Public Class Form1
 
 #Region "Produktstruktur und Dataset speichern oder speichern unter sowie öffnen"
     Private Sub ProduktstrukturNeuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProduktstrukturNeuToolStripMenuItem.Click
-        TBMStructure = True
+        TBMStructure = False
         NewTreeView1.Nodes.Clear()
         Dateiname_tree = ""
         DataSet1.Clear()
@@ -724,28 +724,21 @@ Public Class Form1
 
     Private Sub Save_product_structure()
         If TBMStructure = True Then
-            Save_product_structure_under()
-        Else
-
             If Dateiname_tree <> "" Then
-                If TBMStructure = True Then
-                    Dim _DataTree As New FileInfo(Dateiname_tree)
-                    XMLp.exportTreeViewXML(NewTreeView1, _DataTree.FullName)
-                    Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data_" & Path.GetFileNameWithoutExtension(Dateiname_tree) & ".xml")
-                    'Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data.xml")
-                    DataSet1.WriteXml(_DataFile.FullName)
-                    Me.Text = Path.GetFileName(Dateiname_tree) & " - TeBaM"
-                    CenterAlignTitel()
-                Else
-                    Save_product_structure_under()
-                End If
+                Dim _DataTree As New FileInfo(Dateiname_tree)
+                XMLp.exportTreeViewXML(NewTreeView1, _DataTree.FullName)
+                Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data_" & Path.GetFileNameWithoutExtension(Dateiname_tree) & ".xml")
+                'Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data.xml")
+                DataSet1.WriteXml(_DataFile.FullName)
+                Me.Text = Path.GetFileName(Dateiname_tree) & " - TeBaM"
+                CenterAlignTitel()
             Else
-                MsgBox("Keine Daten zum speichern vorhanden!", vbExclamation)
+                Save_product_structure_under()
             End If
+        Else
+            MsgBox("Keine Daten zum speichern vorhanden!", vbExclamation)
         End If
     End Sub
-
-
 
     Private Sub Save_product_structure_under()
         Dim saveFileDialog1 As New SaveFileDialog()
