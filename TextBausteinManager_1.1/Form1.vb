@@ -545,12 +545,32 @@ Public Class Form1
         End If
         If NewTreeView1.SelectedNode.Tag = "manufacturer" Then CBox_Hersteller.Text = NewTreeView1.SelectedNode.Text
         If NewTreeView1.SelectedNode.Tag = "product" Then CBox_Produkt.Text = NewTreeView1.SelectedNode.Text
+
+        Dim WurzelKnoten As String = ""
+
+        If NewTreeView1.SelectedNode.Tag = "article" Then
+            WurzelKnoten = FindManufacturerNode(NewTreeView1.SelectedNode)
+        End If
+        MsgBox(WurzelKnoten)
+
+
         TBox_NodeText.Text = NewTreeView1.SelectedNode.Text
         TBox_NodeName.Text = NewTreeView1.SelectedNode.Name
         TBox_NodeTag.Text = NewTreeView1.SelectedNode.Tag
         TBox_NodeImageIndex.Text = CStr(NewTreeView1.SelectedNode.ImageIndex)
         TBox_NodeSelImageIndex.Text = CStr(NewTreeView1.SelectedNode.SelectedImageIndex)
     End Sub
+
+    Private Function FindManufacturerNode(node As TreeNode)
+        If node.Tag <> "manufacturer" Then
+            FindManufacturerNode(node.Parent)
+        End If
+        Return node.Parent.Text
+    End Function
+
+
+
+
 
 
     Sub ArticleHMI(NodeTag As String)
