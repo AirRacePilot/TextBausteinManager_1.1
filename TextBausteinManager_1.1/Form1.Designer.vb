@@ -101,6 +101,8 @@ Partial Class Form1
         Me.TBox_Firma1 = New System.Windows.Forms.TextBox()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.HerstellerBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.TBox_NodeSelImageIndex = New System.Windows.Forms.TextBox()
         Me.TBox_NodeImageIndex = New System.Windows.Forms.TextBox()
@@ -134,7 +136,6 @@ Partial Class Form1
         Me.CBox_Produkt = New System.Windows.Forms.ComboBox()
         Me.ProduktBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.CBox_Hersteller = New System.Windows.Forms.ComboBox()
-        Me.HerstellerBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
@@ -188,7 +189,6 @@ Partial Class Form1
         Me.ProduktArtikelBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         Me.FKArtikelSpezOptionenBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.CMS_NewTreeView1.SuspendLayout()
@@ -206,10 +206,10 @@ Partial Class Form1
         CType(Me.VertreterBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataSet2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
+        CType(Me.HerstellerBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.ProduktBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.HerstellerBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage3.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage4.SuspendLayout()
@@ -934,6 +934,21 @@ Partial Class Form1
         Me.TabPage2.Text = "Artikel"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.HerstellerBindingSource, "Hersteller", True))
+        Me.Label8.Location = New System.Drawing.Point(652, 52)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(49, 16)
+        Me.Label8.TabIndex = 12
+        Me.Label8.Text = "Label8"
+        '
+        'HerstellerBindingSource
+        '
+        Me.HerstellerBindingSource.DataMember = "Hersteller"
+        Me.HerstellerBindingSource.DataSource = Me.DataSet1
+        '
         'GroupBox5
         '
         Me.GroupBox5.Controls.Add(Me.TBox_NodeSelImageIndex)
@@ -1280,11 +1295,6 @@ Partial Class Form1
         Me.CBox_Hersteller.Size = New System.Drawing.Size(162, 25)
         Me.CBox_Hersteller.TabIndex = 1
         Me.CBox_Hersteller.ValueMember = "HerstellerID"
-        '
-        'HerstellerBindingSource
-        '
-        Me.HerstellerBindingSource.DataMember = "Hersteller"
-        Me.HerstellerBindingSource.DataSource = Me.DataSet1
         '
         'Label6
         '
@@ -1704,16 +1714,6 @@ Partial Class Form1
         Me.SplitContainer1.SplitterDistance = 428
         Me.SplitContainer1.TabIndex = 8
         '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.HerstellerBindingSource, "Hersteller", True))
-        Me.Label8.Location = New System.Drawing.Point(652, 52)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(49, 16)
-        Me.Label8.TabIndex = 12
-        Me.Label8.Text = "Label8"
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1725,7 +1725,7 @@ Partial Class Form1
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "Form1"
-        Me.Text = "Form1"
+        Me.Text = "TeBaM"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
@@ -1747,12 +1747,12 @@ Partial Class Form1
         CType(Me.DataSet2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
+        CType(Me.HerstellerBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.ProduktBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.HerstellerBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage3.ResumeLayout(False)
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage4.ResumeLayout(False)

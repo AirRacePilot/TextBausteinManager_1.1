@@ -67,6 +67,7 @@ Public Class Form1
         With DataGridView5.RowsDefaultCellStyle
             .Font = New Font(DataGridView5.Font, FontStyle.Regular)
         End With
+        CenterAlignTitel()
     End Sub
 
     Sub InitHMI()
@@ -647,10 +648,10 @@ Public Class Form1
 
 #Region "Produktstruktur und Dataset speichern oder speichern unter sowie öffnen"
     Private Sub ProduktstrukturNeuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ProduktstrukturNeuToolStripMenuItem.Click
-        Save_product_structure()
         TBMStructure = True
         NewTreeView1.Nodes.Clear()
-        Save_product_structure_under()
+        Dateiname_tree = ""
+        CenterAlignTitel()
     End Sub
 
 
@@ -679,15 +680,25 @@ Public Class Form1
             If TBMStructure = True Then
                 Dim _DataTree As New FileInfo(Dateiname_tree)
                 XMLp.exportTreeViewXML(NewTreeView1, _DataTree.FullName)
-                'Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data_" & Path.GetFileNameWithoutExtension(Dateiname_tree) & ".xml")
-                Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data.xml")
+                Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data_" & Path.GetFileNameWithoutExtension(Dateiname_tree) & ".xml")
+                'Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data.xml")
                 DataSet1.WriteXml(_DataFile.FullName)
+                Me.Text = Path.GetFileName(Dateiname_tree) & " - TeBaM"
+                CenterAlignTitel()
             Else
                 Save_product_structure_under()
             End If
-            Me.Text = "TBM Manager - for Nagel WZM GmbH (c)FM2017"
         Else
-            Save_product_structure_under()
+            If NewTreeView1.Nodes IsNot Nothing Then
+                Select Case MessageBox.Show("Die Produktstruktur ist noch nicht gespeichert!" _
+                                          & vbCrLf & "Wollen Sie wirklich beenden ohne zu speichern?" _
+                                          & vbCrLf & "Alle Daten gehen verloren!", "ohne speichern fortsetzen?", MessageBoxButtons.YesNo)
+                    Case DialogResult.Yes
+                        'beenden ohne zu sichern
+                    Case DialogResult.No
+                        Save_product_structure_under()
+                End Select
+            End If
         End If
     End Sub
 
@@ -712,7 +723,8 @@ Public Class Form1
             If openFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
                 Dateiname_tree = openFileDialog1.FileName
                 Dim _DataTree As New FileInfo(Dateiname_tree)
-                Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data.xml")
+                Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data_" & Path.GetFileNameWithoutExtension(Dateiname_tree) & ".xml")
+                'Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data.xml")
                 If Not _DataFile.Exists Then Return
                 NewTreeView1.Nodes.Clear()
                 DataSet1.ReadXml(_DataFile.FullName)
@@ -721,6 +733,7 @@ Public Class Form1
                     InitHMI()
                     TBMStructure = True
                 End If
+                CenterAlignTitel()
             End If
         Else
             Save_product_structure()
@@ -731,11 +744,29 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub Form1_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
+        CenterAlignTitel()
+    End Sub
 
+    Sub CenterAlignTitel()
+        Dim Titel As String
+        If Dateiname_tree <> "" Then
+            Titel = Path.GetFileName(Dateiname_tree) & " - TeBaM"
+        Else
+            Titel = "TeBaM"
+        End If
+        Dim g As Graphics = Me.CreateGraphics()
 
-
-
-
+        Dim startingPoint As Double = (Me.Width / 2) - (g.MeasureString(Titel.Trim, Me.Font).Width / 2)
+        Dim widthOfASpace As Double = g.MeasureString(" ", Me.Font).Width
+        Dim tmp As String = " "
+        Dim tmpWidth As Double = 0
+        Do
+            tmp += " "
+            tmpWidth += widthOfASpace
+        Loop While (tmpWidth + widthOfASpace) < startingPoint
+        Me.Text = tmp & Titel.Trim & tmp
+    End Sub
 #End Region
 
 #Region "Vertreterdaten in ComboBox einlesen bzw. editieren"
@@ -1125,6 +1156,10 @@ Public Class Form1
             Idx.SortRow = Index_DRx
         End If
     End Sub
+
+
+
+
 
 
 
