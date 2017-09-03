@@ -71,7 +71,7 @@ Public Class Form1
     End Sub
 
     Sub InitHMI()
-        VT_edit=true
+        VT_edit = True
         'Form2.DataSet2.Vertreter.ReadXml(VT_DataFile.FullName)
         With DataGridView5
             .RowsDefaultCellStyle.BackColor = Color.Bisque
@@ -80,8 +80,8 @@ Public Class Form1
         'Vorlagen Dokumente in Combobox laden
         Dim OrtEigeneDateien As String = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
         Dim Dir As New DirectoryInfo(OrtEigeneDateien & "\Benutzerdefinierte Office-Vorlagen\")
-        CBox_DokVorlage.Items.clear      
-            For Each file As FileInfo In Dir.GetFiles 
+        CBox_DokVorlage.Items.Clear()
+        For Each file As FileInfo In Dir.GetFiles
             If Microsoft.VisualBasic.Left(file.Name, 1) <> "~" Then
                 CBox_DokVorlage.Items.Add(file.Name)
             End If
@@ -98,8 +98,23 @@ Public Class Form1
 #End Region
 
     Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        Save_product_structure()
+        If TBMStructure = True Then
+            If Dateiname_tree = "" Then
+                Select Case MessageBox.Show("Die Produktstruktur ist noch nicht gespeichert!" _
+                             & vbCrLf & "Wollen Sie wirklich beenden ohne zu speichern?" _
+                             & vbCrLf & "Alle Daten gehen verloren!", "ohne speichern fortsetzen?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                    Case DialogResult.Yes
+                        'beenden ohne zu sichern
+                    Case DialogResult.No
+                        Save_product_structure_under()
+                End Select
+            Else
+                Save_product_structure()
+            End If
+        End If
     End Sub
+
+
 
 #Region "Hersteller, Produkt und Artikel im TreeView hinzufügen oder löschen; TSB=ToolStripButton"
     Private Sub TSB_AddManufacturerNode_Click(sender As Object, e As EventArgs) Handles TSB_AddManufacturerNode.Click
@@ -543,17 +558,20 @@ Public Class Form1
         If currentNode.Parent IsNot Nothing Then
             SelectedNodeChanged()
         End If
-        If NewTreeView1.SelectedNode.Tag = "manufacturer" Then CBox_Hersteller.Text = NewTreeView1.SelectedNode.Text
-        If NewTreeView1.SelectedNode.Tag = "product" Then CBox_Produkt.Text = NewTreeView1.SelectedNode.Text
 
         Dim WurzelKnoten As String = ""
-
         If NewTreeView1.SelectedNode.Tag = "article" Then
-            WurzelKnoten = FindManufacturerNode(NewTreeView1.SelectedNode)
+            WurzelKnoten = FindManufacturerNode(currentNode)
+            CBox_Hersteller.Text = WurzelKnoten
         End If
-        MsgBox(WurzelKnoten)
+        If NewTreeView1.SelectedNode.Tag = "product" Then
+            WurzelKnoten = FindManufacturerNode(currentNode)
+            CBox_Hersteller.Text = WurzelKnoten
+        End If
 
 
+        If NewTreeView1.SelectedNode.Tag = "manufacturer" Then CBox_Hersteller.Text = NewTreeView1.SelectedNode.Text
+        ' If NewTreeView1.SelectedNode.Tag = "product" Then CBox_Produkt.Text = NewTreeView1.SelectedNode.Text
         TBox_NodeText.Text = NewTreeView1.SelectedNode.Text
         TBox_NodeName.Text = NewTreeView1.SelectedNode.Name
         TBox_NodeTag.Text = NewTreeView1.SelectedNode.Tag
@@ -561,18 +579,19 @@ Public Class Form1
         TBox_NodeSelImageIndex.Text = CStr(NewTreeView1.SelectedNode.SelectedImageIndex)
     End Sub
 
+
+
+
     Private Function FindManufacturerNode(node As TreeNode)
-        If node.Tag <> "manufacturer" Then
-            FindManufacturerNode(node.Parent)
-        End If
-        Return node.Parent.Text
+        While node IsNot Nothing
+            If node.Tag = "manufacturer" Then
+                Return node.Text
+            Else
+                node = node.Parent
+            End If
+        End While
     End Function
-
-
-
-
-
-
+    
     Sub ArticleHMI(NodeTag As String)
         If NodeTag = "article" Then
             GroupBox2.Enabled = True
@@ -698,33 +717,6 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub Save_product_structure()
-        If Dateiname_tree <> "" Then
-            If TBMStructure = True Then
-                Dim _DataTree As New FileInfo(Dateiname_tree)
-                XMLp.exportTreeViewXML(NewTreeView1, _DataTree.FullName)
-                Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data_" & Path.GetFileNameWithoutExtension(Dateiname_tree) & ".xml")
-                'Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data.xml")
-                DataSet1.WriteXml(_DataFile.FullName)
-                Me.Text = Path.GetFileName(Dateiname_tree) & " - TeBaM"
-                CenterAlignTitel()
-            Else
-                Save_product_structure_under()
-            End If
-        Else
-            If NewTreeView1.Nodes IsNot Nothing Then
-                Select Case MessageBox.Show("Die Produktstruktur ist noch nicht gespeichert!" _
-                                          & vbCrLf & "Wollen Sie wirklich beenden ohne zu speichern?" _
-                                          & vbCrLf & "Alle Daten gehen verloren!", "ohne speichern fortsetzen?", MessageBoxButtons.YesNo)
-                    Case DialogResult.Yes
-                        'beenden ohne zu sichern
-                    Case DialogResult.No
-                        Save_product_structure_under()
-                End Select
-            End If
-        End If
-    End Sub
-
     Private Sub Save_product_structure_under()
         Dim saveFileDialog1 As New SaveFileDialog()
         saveFileDialog1.Filter = "Produktstruktur speichern unter|*.xml"
@@ -736,6 +728,25 @@ Public Class Form1
             TBMStructure = True
         End If
     End Sub
+
+    Private Sub Save_product_structure()   
+         If Dateiname_tree <> "" Then
+                If TBMStructure = True Then
+                    Dim _DataTree As New FileInfo(Dateiname_tree)
+                    XMLp.exportTreeViewXML(NewTreeView1, _DataTree.FullName)
+                    Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data_" & Path.GetFileNameWithoutExtension(Dateiname_tree) & ".xml")
+                    'Dim _DataFile As New FileInfo(My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\Data.xml")
+                    DataSet1.WriteXml(_DataFile.FullName)
+                    Me.Text = Path.GetFileName(Dateiname_tree) & " - TeBaM"
+                    CenterAlignTitel()
+                Else
+                    Save_product_structure_under()
+                End If        
+         End If 
+            End Sub  
+
+
+
 
     Private Sub Open_product_structure()
         If TBMStructure = False Then
@@ -762,7 +773,7 @@ Public Class Form1
             Save_product_structure()
             TBMStructure = False
             DataSet1.Clear()
-           ' Form2.DataSet2.Clear()
+            ' Form2.DataSet2.Clear()
             Open_product_structure()
         End If
     End Sub
@@ -914,7 +925,6 @@ Public Class Form1
 
     Private Sub AfterLabelEdit(ByVal text As String, ByVal tag As String, ByVal name As String)
         If tag = "manufacturer" Then
-            Label8.Text = text
             Dim NewHerstellerRow As DataSet1.HerstellerRow
             NewHerstellerRow = DataSet1.Hersteller.FindByHerstellerID(name)
             NewHerstellerRow.Hersteller = text
@@ -956,6 +966,7 @@ Public Class Form1
     End Sub
 
 #End Region
+
     Sub NewNumberOffer()
         Dim SpezRow As DataSet1.SpezOptionenRow = Nothing
         For i = 0 To DataGridView5.Rows.Count - 1
@@ -1078,7 +1089,7 @@ Public Class Form1
     End Sub
 #End Region
 
-#Region "Neues Angebot einfügen;löschen fehlt noch"
+#Region "Neues Angebot einfügen oder löschen"
     Private Sub Btn_AddOffer_Click(sender As Object, e As EventArgs) Handles Btn_AddOffer.Click
         Try
             Dim prompt As String = String.Empty
@@ -1092,7 +1103,7 @@ Public Class Form1
             If answer IsNot "" Then
                 Dim NewAGRow As DataSet1.AngebotRow = Nothing
                 NewAGRow = DataSet1.Angebot.NewAngebotRow
-                NewAGRow.Angebotsnummer = answer
+                NewAGRow.AngebotsID = answer
                 NewAGRow.Kundennummer = CB_Kundennummer.Text
                 NewAGRow.AngebotURL = "noch nicht definiert"
                 DataSet1.Angebot.Rows.Add(NewAGRow)
@@ -1101,6 +1112,19 @@ Public Class Form1
             MsgBox("Diese Angebotsnummer ist bereits vorhanden!", vbExclamation)
         End Try
     End Sub
+
+
+    Private Sub Btn_delOffer_Click(sender As Object, e As EventArgs) Handles Btn_delOffer.Click
+        Dim AngRow As DataSet1.AngebotRow
+        AngRow = DataSet1.Angebot.FindByAngebotsID(CB_Angebotsnummer.Text)
+        Select Case MessageBox.Show("Wollen Sie das Angebot wirklich löschen?", "Angebot löschen", MessageBoxButtons.YesNo)
+            Case DialogResult.Yes
+                AngRow.Delete()
+            Case DialogResult.No
+                MsgBox("Löschen abgebrochen", vbExclamation)
+        End Select
+    End Sub
+
 #End Region
 
 #Region "Treeview entsprechend ausgewähltem Angebot aktualisieren"
@@ -1179,6 +1203,10 @@ Public Class Form1
             Idx.SortRow = Index_DRx
         End If
     End Sub
+
+
+
+
 
 
 
