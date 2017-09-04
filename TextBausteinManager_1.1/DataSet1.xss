@@ -9,9 +9,9 @@
     <Shape ID="DesignTable:Produkt" ZOrder="6" X="117" Y="38" Height="124" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="120" />
     <Shape ID="DesignTable:Artikel" ZOrder="4" X="182" Y="289" Height="257" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="253" />
     <Shape ID="DesignTable:Hersteller" ZOrder="9" X="377" Y="-23" Height="86" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="82" />
-    <Shape ID="DesignTable:Angebot" ZOrder="8" X="949" Y="37" Height="86" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="82" />
+    <Shape ID="DesignTable:Angebot" ZOrder="8" X="949" Y="37" Height="195" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="191" />
     <Shape ID="DesignTable:Kunde" ZOrder="10" X="628" Y="-8" Height="219" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="215" />
-    <Shape ID="DesignTable:SpezOptionen" ZOrder="7" X="732" Y="325" Height="105" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="101" />
+    <Shape ID="DesignTable:SpezOptionen" ZOrder="7" X="732" Y="325" Height="218" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="214" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:FK_Kunde_Angebot" ZOrder="2" LineWidth="11">
@@ -35,6 +35,22 @@
         <Point>
           <X>732</X>
           <Y>415</Y>
+        </Point>
+      </RoutePoints>
+    </Connector>
+    <Connector ID="DesignRelation:FK_Angebot_SpezOptionen" ZOrder="1" LineWidth="11">
+      <RoutePoints>
+        <Point>
+          <X>966</X>
+          <Y>232</Y>
+        </Point>
+        <Point>
+          <X>966</X>
+          <Y>358</Y>
+        </Point>
+        <Point>
+          <X>882</X>
+          <Y>358</Y>
         </Point>
       </RoutePoints>
     </Connector>
@@ -67,22 +83,6 @@
         <Point>
           <X>332</X>
           <Y>354</Y>
-        </Point>
-      </RoutePoints>
-    </Connector>
-    <Connector ID="DesignRelation:FK_Angebot_SpezOptionen" ZOrder="1" LineWidth="11">
-      <RoutePoints>
-        <Point>
-          <X>966</X>
-          <Y>123</Y>
-        </Point>
-        <Point>
-          <X>966</X>
-          <Y>358</Y>
-        </Point>
-        <Point>
-          <X>882</X>
-          <Y>358</Y>
         </Point>
       </RoutePoints>
     </Connector>

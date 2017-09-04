@@ -27,6 +27,8 @@ Partial Class Form1
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.DateiToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProduktstrukturNeuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -74,6 +76,7 @@ Partial Class Form1
         Me.DataGridView5 = New System.Windows.Forms.DataGridView()
         Me.Column1 = New System.Windows.Forms.DataGridViewComboBoxColumn()
         Me.Column2 = New System.Windows.Forms.DataGridViewComboBoxColumn()
+        Me.Column5 = New System.Windows.Forms.DataGridViewComboBoxColumn()
         Me.Column3 = New System.Windows.Forms.DataGridViewComboBoxColumn()
         Me.Column4 = New System.Windows.Forms.DataGridViewComboBoxColumn()
         Me.OptionIDDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -81,7 +84,7 @@ Partial Class Form1
         Me.ArtikelIDDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.SortRowDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox9 = New System.Windows.Forms.GroupBox()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.TBox_Angebotstitel = New System.Windows.Forms.TextBox()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
         Me.Btn_delOffer = New System.Windows.Forms.Button()
@@ -217,7 +220,6 @@ Partial Class Form1
         Me.GroupBox4.SuspendLayout()
         CType(Me.DataGridView5, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
-        Me.GroupBox9.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -243,7 +245,8 @@ Partial Class Form1
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DateiToolStripMenuItem, Me.VertreterToolStripMenuItem, Me.AngebotToolStripMenuItem, Me.KonfigurationToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1080, 24)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(8, 2, 0, 2)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1440, 28)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -251,79 +254,80 @@ Partial Class Form1
         '
         Me.DateiToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ProduktstrukturNeuToolStripMenuItem, Me.ProduktstrukturÖffnenToolStripMenuItem, Me.ProduktstrukturSpeichernToolStripMenuItem, Me.ProduktstrukturSpeichernUnterToolStripMenuItem})
         Me.DateiToolStripMenuItem.Name = "DateiToolStripMenuItem"
-        Me.DateiToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
+        Me.DateiToolStripMenuItem.Size = New System.Drawing.Size(57, 24)
         Me.DateiToolStripMenuItem.Text = "Datei"
         '
         'ProduktstrukturNeuToolStripMenuItem
         '
         Me.ProduktstrukturNeuToolStripMenuItem.Name = "ProduktstrukturNeuToolStripMenuItem"
-        Me.ProduktstrukturNeuToolStripMenuItem.Size = New System.Drawing.Size(242, 22)
+        Me.ProduktstrukturNeuToolStripMenuItem.Size = New System.Drawing.Size(289, 26)
         Me.ProduktstrukturNeuToolStripMenuItem.Text = "Produktstruktur neu"
         '
         'ProduktstrukturÖffnenToolStripMenuItem
         '
         Me.ProduktstrukturÖffnenToolStripMenuItem.Name = "ProduktstrukturÖffnenToolStripMenuItem"
-        Me.ProduktstrukturÖffnenToolStripMenuItem.Size = New System.Drawing.Size(242, 22)
+        Me.ProduktstrukturÖffnenToolStripMenuItem.Size = New System.Drawing.Size(289, 26)
         Me.ProduktstrukturÖffnenToolStripMenuItem.Text = "Produktstruktur öffnen"
         '
         'ProduktstrukturSpeichernToolStripMenuItem
         '
         Me.ProduktstrukturSpeichernToolStripMenuItem.Name = "ProduktstrukturSpeichernToolStripMenuItem"
-        Me.ProduktstrukturSpeichernToolStripMenuItem.Size = New System.Drawing.Size(242, 22)
+        Me.ProduktstrukturSpeichernToolStripMenuItem.Size = New System.Drawing.Size(289, 26)
         Me.ProduktstrukturSpeichernToolStripMenuItem.Text = "Produktstruktur speichern"
         '
         'ProduktstrukturSpeichernUnterToolStripMenuItem
         '
         Me.ProduktstrukturSpeichernUnterToolStripMenuItem.Name = "ProduktstrukturSpeichernUnterToolStripMenuItem"
-        Me.ProduktstrukturSpeichernUnterToolStripMenuItem.Size = New System.Drawing.Size(242, 22)
+        Me.ProduktstrukturSpeichernUnterToolStripMenuItem.Size = New System.Drawing.Size(289, 26)
         Me.ProduktstrukturSpeichernUnterToolStripMenuItem.Text = "Produktstruktur speichern unter"
         '
         'VertreterToolStripMenuItem
         '
         Me.VertreterToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.VertreterlisteBearbeitenToolStripMenuItem})
         Me.VertreterToolStripMenuItem.Name = "VertreterToolStripMenuItem"
-        Me.VertreterToolStripMenuItem.Size = New System.Drawing.Size(64, 20)
+        Me.VertreterToolStripMenuItem.Size = New System.Drawing.Size(79, 24)
         Me.VertreterToolStripMenuItem.Text = "Vertreter"
         '
         'VertreterlisteBearbeitenToolStripMenuItem
         '
         Me.VertreterlisteBearbeitenToolStripMenuItem.Name = "VertreterlisteBearbeitenToolStripMenuItem"
-        Me.VertreterlisteBearbeitenToolStripMenuItem.Size = New System.Drawing.Size(157, 22)
+        Me.VertreterlisteBearbeitenToolStripMenuItem.Size = New System.Drawing.Size(190, 26)
         Me.VertreterlisteBearbeitenToolStripMenuItem.Text = "Liste bearbeiten"
         '
         'AngebotToolStripMenuItem
         '
         Me.AngebotToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NeuToolStripMenuItem})
         Me.AngebotToolStripMenuItem.Name = "AngebotToolStripMenuItem"
-        Me.AngebotToolStripMenuItem.Size = New System.Drawing.Size(65, 20)
+        Me.AngebotToolStripMenuItem.Size = New System.Drawing.Size(79, 24)
         Me.AngebotToolStripMenuItem.Text = "Angebot"
         '
         'NeuToolStripMenuItem
         '
         Me.NeuToolStripMenuItem.Name = "NeuToolStripMenuItem"
-        Me.NeuToolStripMenuItem.Size = New System.Drawing.Size(94, 22)
+        Me.NeuToolStripMenuItem.Size = New System.Drawing.Size(108, 26)
         Me.NeuToolStripMenuItem.Text = "neu"
         '
         'KonfigurationToolStripMenuItem
         '
         Me.KonfigurationToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TextmarkenDefinierenToolStripMenuItem})
         Me.KonfigurationToolStripMenuItem.Name = "KonfigurationToolStripMenuItem"
-        Me.KonfigurationToolStripMenuItem.Size = New System.Drawing.Size(92, 20)
+        Me.KonfigurationToolStripMenuItem.Size = New System.Drawing.Size(112, 24)
         Me.KonfigurationToolStripMenuItem.Text = "Konfiguration"
         '
         'TextmarkenDefinierenToolStripMenuItem
         '
         Me.TextmarkenDefinierenToolStripMenuItem.Name = "TextmarkenDefinierenToolStripMenuItem"
-        Me.TextmarkenDefinierenToolStripMenuItem.Size = New System.Drawing.Size(222, 22)
+        Me.TextmarkenDefinierenToolStripMenuItem.Size = New System.Drawing.Size(270, 26)
         Me.TextmarkenDefinierenToolStripMenuItem.Text = "word Textmarken definieren"
         '
         'StatusStrip1
         '
         Me.StatusStrip1.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 716)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 886)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1080, 22)
+        Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1440, 22)
         Me.StatusStrip1.TabIndex = 1
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -331,9 +335,9 @@ Partial Class Form1
         '
         Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSB_AddManufacturerNode, Me.TSB_AddProductNode, Me.TSB_AddArticleNode, Me.TSB_DeleteNode, Me.ToolStripButton1})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 28)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(1080, 31)
+        Me.ToolStrip1.Size = New System.Drawing.Size(1440, 31)
         Me.ToolStrip1.TabIndex = 2
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -397,18 +401,18 @@ Partial Class Form1
         Me.CMS_NewTreeView1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.CMS_NewTreeView1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.KnotenEditierenToolStripMenuItem, Me.AnzeigenToolStripMenuItem})
         Me.CMS_NewTreeView1.Name = "CMS_NewTreeView1"
-        Me.CMS_NewTreeView1.Size = New System.Drawing.Size(146, 48)
+        Me.CMS_NewTreeView1.Size = New System.Drawing.Size(171, 56)
         '
         'KnotenEditierenToolStripMenuItem
         '
         Me.KnotenEditierenToolStripMenuItem.Name = "KnotenEditierenToolStripMenuItem"
-        Me.KnotenEditierenToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
+        Me.KnotenEditierenToolStripMenuItem.Size = New System.Drawing.Size(170, 26)
         Me.KnotenEditierenToolStripMenuItem.Text = "umbenennen"
         '
         'AnzeigenToolStripMenuItem
         '
         Me.AnzeigenToolStripMenuItem.Name = "AnzeigenToolStripMenuItem"
-        Me.AnzeigenToolStripMenuItem.Size = New System.Drawing.Size(145, 22)
+        Me.AnzeigenToolStripMenuItem.Size = New System.Drawing.Size(170, 26)
         Me.AnzeigenToolStripMenuItem.Text = "anzeigen"
         '
         'ArtikelBindingSource
@@ -431,11 +435,13 @@ Partial Class Form1
         '
         Me.FKKundeAngebotBindingSource.DataMember = "FK_Kunde_Angebot"
         Me.FKKundeAngebotBindingSource.DataSource = Me.KundeBindingSource
+        Me.FKKundeAngebotBindingSource.Sort = "AngebotsID"
         '
         'KundeBindingSource
         '
         Me.KundeBindingSource.DataMember = "Kunde"
         Me.KundeBindingSource.DataSource = Me.DataSet1
+        Me.KundeBindingSource.Sort = "KdNummer"
         '
         'VertreterBindingSource
         '
@@ -451,16 +457,19 @@ Partial Class Form1
         '
         Me.HerstellerBindingSource.DataMember = "Hersteller"
         Me.HerstellerBindingSource.DataSource = Me.DataSet1
+        Me.HerstellerBindingSource.Sort = "HerstellerID"
         '
         'ProduktBindingSource
         '
         Me.ProduktBindingSource.DataMember = "Produkt"
         Me.ProduktBindingSource.DataSource = Me.DataSet1
+        Me.ProduktBindingSource.Sort = "ProduktTyp"
         '
         'SpezOptionenBindingSource
         '
         Me.SpezOptionenBindingSource.DataMember = "SpezOptionen"
         Me.SpezOptionenBindingSource.DataSource = Me.DataSet1
+        Me.SpezOptionenBindingSource.Sort = "Angebotsnummer, SortRow"
         '
         'HerstellerProduktBindingSource
         '
@@ -487,9 +496,10 @@ Partial Class Form1
         Me.NewTreeView1.ImageIndex = 0
         Me.NewTreeView1.ImageList = Me.ImageList1
         Me.NewTreeView1.Location = New System.Drawing.Point(0, 0)
+        Me.NewTreeView1.Margin = New System.Windows.Forms.Padding(4)
         Me.NewTreeView1.Name = "NewTreeView1"
         Me.NewTreeView1.SelectedImageIndex = 0
-        Me.NewTreeView1.Size = New System.Drawing.Size(359, 661)
+        Me.NewTreeView1.Size = New System.Drawing.Size(478, 827)
         Me.NewTreeView1.TabIndex = 7
         '
         'ProduktArtikelBindingSource1
@@ -505,7 +515,8 @@ Partial Class Form1
         'SplitContainer1
         '
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 55)
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 59)
+        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(4)
         Me.SplitContainer1.Name = "SplitContainer1"
         '
         'SplitContainer1.Panel1
@@ -515,8 +526,9 @@ Partial Class Form1
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.TabControl1)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1080, 661)
-        Me.SplitContainer1.SplitterDistance = 359
+        Me.SplitContainer1.Size = New System.Drawing.Size(1440, 827)
+        Me.SplitContainer1.SplitterDistance = 478
+        Me.SplitContainer1.SplitterWidth = 5
         Me.SplitContainer1.TabIndex = 8
         '
         'TabControl1
@@ -531,20 +543,22 @@ Partial Class Form1
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
-        Me.TabControl1.MinimumSize = New System.Drawing.Size(600, 0)
+        Me.TabControl1.Margin = New System.Windows.Forms.Padding(4)
+        Me.TabControl1.MinimumSize = New System.Drawing.Size(800, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(717, 661)
+        Me.TabControl1.Size = New System.Drawing.Size(957, 827)
         Me.TabControl1.TabIndex = 4
         '
         'TabPage1
         '
         Me.TabPage1.Controls.Add(Me.GroupBox4)
         Me.TabPage1.Controls.Add(Me.GroupBox3)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage1.Margin = New System.Windows.Forms.Padding(4)
         Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(709, 632)
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(4)
+        Me.TabPage1.Size = New System.Drawing.Size(949, 794)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Angebot"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -554,9 +568,11 @@ Partial Class Form1
         Me.GroupBox4.Controls.Add(Me.DataGridView5)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox4.Location = New System.Drawing.Point(3, 399)
+        Me.GroupBox4.Location = New System.Drawing.Point(4, 491)
+        Me.GroupBox4.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(703, 230)
+        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox4.Size = New System.Drawing.Size(941, 299)
         Me.GroupBox4.TabIndex = 1
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Angebot"
@@ -569,19 +585,21 @@ Partial Class Form1
         Me.DataGridView5.AutoGenerateColumns = False
         Me.DataGridView5.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.DataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView5.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.OptionIDDataGridViewTextBoxColumn, Me.AngebotsnummerDataGridViewTextBoxColumn, Me.ArtikelIDDataGridViewTextBoxColumn, Me.SortRowDataGridViewTextBoxColumn})
+        Me.DataGridView5.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column5, Me.Column3, Me.Column4, Me.OptionIDDataGridViewTextBoxColumn, Me.AngebotsnummerDataGridViewTextBoxColumn, Me.ArtikelIDDataGridViewTextBoxColumn, Me.SortRowDataGridViewTextBoxColumn})
         Me.DataGridView5.DataSource = Me.FKAngebotSpezOptionenBindingSource
         Me.DataGridView5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView5.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.DataGridView5.Location = New System.Drawing.Point(3, 18)
+        Me.DataGridView5.Location = New System.Drawing.Point(4, 23)
+        Me.DataGridView5.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView5.MultiSelect = False
         Me.DataGridView5.Name = "DataGridView5"
         Me.DataGridView5.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView5.Size = New System.Drawing.Size(697, 209)
+        Me.DataGridView5.Size = New System.Drawing.Size(933, 272)
         Me.DataGridView5.TabIndex = 0
         '
         'Column1
         '
+        Me.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells
         Me.Column1.DataPropertyName = "ArtikelID"
         Me.Column1.DataSource = Me.ArtikelBindingSource
         Me.Column1.DisplayMember = "Artikelkurztext"
@@ -591,6 +609,7 @@ Partial Class Form1
         Me.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         Me.Column1.ValueMember = "ArtikelID"
+        Me.Column1.Width = 159
         '
         'Column2
         '
@@ -607,13 +626,28 @@ Partial Class Form1
         Me.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         Me.Column2.ValueMember = "ArtikelID"
         '
+        'Column5
+        '
+        Me.Column5.DataPropertyName = "ArtikelID"
+        Me.Column5.DataSource = Me.ArtikelBindingSource
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.Column5.DefaultCellStyle = DataGridViewCellStyle2
+        Me.Column5.DisplayMember = "Rubrik"
+        Me.Column5.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
+        Me.Column5.HeaderText = "Rubrik"
+        Me.Column5.Name = "Column5"
+        Me.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.Column5.ValueMember = "ArtikelID"
+        '
         'Column3
         '
         Me.Column3.DataPropertyName = "ArtikelID"
         Me.Column3.DataSource = Me.ArtikelBindingSource
-        DataGridViewCellStyle2.Format = "C2"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.Column3.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle3.Format = "C2"
+        DataGridViewCellStyle3.NullValue = Nothing
+        Me.Column3.DefaultCellStyle = DataGridViewCellStyle3
         Me.Column3.DisplayMember = "EKPreis"
         Me.Column3.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
         Me.Column3.HeaderText = "EK Preis"
@@ -626,9 +660,10 @@ Partial Class Form1
         '
         Me.Column4.DataPropertyName = "ArtikelID"
         Me.Column4.DataSource = Me.ArtikelBindingSource
-        DataGridViewCellStyle3.Format = "C2"
-        DataGridViewCellStyle3.NullValue = Nothing
-        Me.Column4.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        DataGridViewCellStyle4.Format = "C2"
+        DataGridViewCellStyle4.NullValue = Nothing
+        Me.Column4.DefaultCellStyle = DataGridViewCellStyle4
         Me.Column4.DisplayMember = "VKPreis"
         Me.Column4.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.[Nothing]
         Me.Column4.HeaderText = "VK Preis"
@@ -660,13 +695,18 @@ Partial Class Form1
         '
         'SortRowDataGridViewTextBoxColumn
         '
+        Me.SortRowDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.SortRowDataGridViewTextBoxColumn.DataPropertyName = "SortRow"
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight
+        Me.SortRowDataGridViewTextBoxColumn.DefaultCellStyle = DataGridViewCellStyle5
         Me.SortRowDataGridViewTextBoxColumn.HeaderText = "SortRow"
         Me.SortRowDataGridViewTextBoxColumn.Name = "SortRowDataGridViewTextBoxColumn"
+        Me.SortRowDataGridViewTextBoxColumn.Width = 109
         '
         'GroupBox3
         '
-        Me.GroupBox3.Controls.Add(Me.GroupBox9)
+        Me.GroupBox3.Controls.Add(Me.Label8)
+        Me.GroupBox3.Controls.Add(Me.TBox_Angebotstitel)
         Me.GroupBox3.Controls.Add(Me.GroupBox8)
         Me.GroupBox3.Controls.Add(Me.Btn_DelCustomer)
         Me.GroupBox3.Controls.Add(Me.CB_Kundennummer)
@@ -693,30 +733,34 @@ Partial Class Form1
         Me.GroupBox3.Controls.Add(Me.Label24)
         Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox3.Location = New System.Drawing.Point(3, 3)
+        Me.GroupBox3.Location = New System.Drawing.Point(4, 4)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(703, 396)
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox3.Size = New System.Drawing.Size(941, 487)
         Me.GroupBox3.TabIndex = 0
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Kunde"
         '
-        'GroupBox9
+        'Label8
         '
-        Me.GroupBox9.Controls.Add(Me.TBox_Angebotstitel)
-        Me.GroupBox9.Location = New System.Drawing.Point(320, 251)
-        Me.GroupBox9.Name = "GroupBox9"
-        Me.GroupBox9.Size = New System.Drawing.Size(369, 126)
-        Me.GroupBox9.TabIndex = 32
-        Me.GroupBox9.TabStop = False
-        Me.GroupBox9.Text = "Angebotstitel"
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(435, 198)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(106, 20)
+        Me.Label8.TabIndex = 32
+        Me.Label8.Text = "Angebotstitel"
         '
         'TBox_Angebotstitel
         '
+        Me.TBox_Angebotstitel.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.KundeBindingSource, "Angebotstitel", True))
         Me.TBox_Angebotstitel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_Angebotstitel.Location = New System.Drawing.Point(6, 18)
+        Me.TBox_Angebotstitel.Location = New System.Drawing.Point(435, 222)
+        Me.TBox_Angebotstitel.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_Angebotstitel.Multiline = True
         Me.TBox_Angebotstitel.Name = "TBox_Angebotstitel"
-        Me.TBox_Angebotstitel.Size = New System.Drawing.Size(357, 97)
+        Me.TBox_Angebotstitel.Size = New System.Drawing.Size(483, 131)
         Me.TBox_Angebotstitel.TabIndex = 14
         '
         'GroupBox8
@@ -724,9 +768,11 @@ Partial Class Form1
         Me.GroupBox8.Controls.Add(Me.Btn_delOffer)
         Me.GroupBox8.Controls.Add(Me.CB_Angebotsnummer)
         Me.GroupBox8.Controls.Add(Me.Btn_AddOffer)
-        Me.GroupBox8.Location = New System.Drawing.Point(9, 251)
+        Me.GroupBox8.Location = New System.Drawing.Point(12, 309)
+        Me.GroupBox8.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(290, 62)
+        Me.GroupBox8.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox8.Size = New System.Drawing.Size(387, 76)
         Me.GroupBox8.TabIndex = 31
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Angebotsnummer"
@@ -734,9 +780,10 @@ Partial Class Form1
         'Btn_delOffer
         '
         Me.Btn_delOffer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_delOffer.Location = New System.Drawing.Point(200, 18)
+        Me.Btn_delOffer.Location = New System.Drawing.Point(267, 22)
+        Me.Btn_delOffer.Margin = New System.Windows.Forms.Padding(4)
         Me.Btn_delOffer.Name = "Btn_delOffer"
-        Me.Btn_delOffer.Size = New System.Drawing.Size(75, 26)
+        Me.Btn_delOffer.Size = New System.Drawing.Size(100, 32)
         Me.Btn_delOffer.TabIndex = 31
         Me.Btn_delOffer.Text = "löschen"
         Me.Btn_delOffer.UseVisualStyleBackColor = True
@@ -747,20 +794,20 @@ Partial Class Form1
         Me.CB_Angebotsnummer.DisplayMember = "AngebotsID"
         Me.CB_Angebotsnummer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CB_Angebotsnummer.FormattingEnabled = True
-        Me.CB_Angebotsnummer.Location = New System.Drawing.Point(5, 20)
-        Me.CB_Angebotsnummer.Margin = New System.Windows.Forms.Padding(2)
+        Me.CB_Angebotsnummer.Location = New System.Drawing.Point(7, 25)
+        Me.CB_Angebotsnummer.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CB_Angebotsnummer.Name = "CB_Angebotsnummer"
-        Me.CB_Angebotsnummer.Size = New System.Drawing.Size(111, 24)
+        Me.CB_Angebotsnummer.Size = New System.Drawing.Size(147, 28)
         Me.CB_Angebotsnummer.TabIndex = 26
         Me.CB_Angebotsnummer.ValueMember = "AngebotsID"
         '
         'Btn_AddOffer
         '
         Me.Btn_AddOffer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_AddOffer.Location = New System.Drawing.Point(120, 18)
-        Me.Btn_AddOffer.Margin = New System.Windows.Forms.Padding(2)
+        Me.Btn_AddOffer.Location = New System.Drawing.Point(160, 22)
+        Me.Btn_AddOffer.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Btn_AddOffer.Name = "Btn_AddOffer"
-        Me.Btn_AddOffer.Size = New System.Drawing.Size(75, 26)
+        Me.Btn_AddOffer.Size = New System.Drawing.Size(100, 32)
         Me.Btn_AddOffer.TabIndex = 30
         Me.Btn_AddOffer.Text = "neu"
         Me.Btn_AddOffer.UseVisualStyleBackColor = True
@@ -768,10 +815,10 @@ Partial Class Form1
         'Btn_DelCustomer
         '
         Me.Btn_DelCustomer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_DelCustomer.Location = New System.Drawing.Point(439, 37)
-        Me.Btn_DelCustomer.Margin = New System.Windows.Forms.Padding(2)
+        Me.Btn_DelCustomer.Location = New System.Drawing.Point(585, 46)
+        Me.Btn_DelCustomer.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Btn_DelCustomer.Name = "Btn_DelCustomer"
-        Me.Btn_DelCustomer.Size = New System.Drawing.Size(115, 24)
+        Me.Btn_DelCustomer.Size = New System.Drawing.Size(153, 30)
         Me.Btn_DelCustomer.TabIndex = 29
         Me.Btn_DelCustomer.Text = "Kunden löschen"
         Me.Btn_DelCustomer.UseVisualStyleBackColor = True
@@ -782,20 +829,20 @@ Partial Class Form1
         Me.CB_Kundennummer.DisplayMember = "KdNummer"
         Me.CB_Kundennummer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CB_Kundennummer.FormattingEnabled = True
-        Me.CB_Kundennummer.Location = New System.Drawing.Point(5, 37)
-        Me.CB_Kundennummer.Margin = New System.Windows.Forms.Padding(2)
+        Me.CB_Kundennummer.Location = New System.Drawing.Point(7, 46)
+        Me.CB_Kundennummer.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CB_Kundennummer.Name = "CB_Kundennummer"
-        Me.CB_Kundennummer.Size = New System.Drawing.Size(294, 24)
+        Me.CB_Kundennummer.Size = New System.Drawing.Size(391, 28)
         Me.CB_Kundennummer.TabIndex = 28
         Me.CB_Kundennummer.ValueMember = "KundenID"
         '
         'Btn_AddCustomer
         '
         Me.Btn_AddCustomer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_AddCustomer.Location = New System.Drawing.Point(320, 37)
-        Me.Btn_AddCustomer.Margin = New System.Windows.Forms.Padding(2)
+        Me.Btn_AddCustomer.Location = New System.Drawing.Point(427, 46)
+        Me.Btn_AddCustomer.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Btn_AddCustomer.Name = "Btn_AddCustomer"
-        Me.Btn_AddCustomer.Size = New System.Drawing.Size(115, 24)
+        Me.Btn_AddCustomer.Size = New System.Drawing.Size(153, 30)
         Me.Btn_AddCustomer.TabIndex = 25
         Me.Btn_AddCustomer.Text = "neuer Kunde"
         Me.Btn_AddCustomer.UseVisualStyleBackColor = True
@@ -804,10 +851,9 @@ Partial Class Form1
         '
         Me.Label35.AutoSize = True
         Me.Label35.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label35.Location = New System.Drawing.Point(6, 19)
-        Me.Label35.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Label35.Location = New System.Drawing.Point(8, 23)
         Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(101, 16)
+        Me.Label35.Size = New System.Drawing.Size(126, 20)
         Me.Label35.TabIndex = 23
         Me.Label35.Text = "Kundennummer"
         '
@@ -815,9 +861,11 @@ Partial Class Form1
         '
         Me.GroupBox6.Controls.Add(Me.BTN_down)
         Me.GroupBox6.Controls.Add(Me.BTN_up)
-        Me.GroupBox6.Location = New System.Drawing.Point(9, 319)
+        Me.GroupBox6.Location = New System.Drawing.Point(12, 393)
+        Me.GroupBox6.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(290, 58)
+        Me.GroupBox6.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox6.Size = New System.Drawing.Size(387, 71)
         Me.GroupBox6.TabIndex = 22
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Element verschieben"
@@ -825,9 +873,10 @@ Partial Class Form1
         'BTN_down
         '
         Me.BTN_down.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_down.Location = New System.Drawing.Point(120, 21)
+        Me.BTN_down.Location = New System.Drawing.Point(160, 26)
+        Me.BTN_down.Margin = New System.Windows.Forms.Padding(4)
         Me.BTN_down.Name = "BTN_down"
-        Me.BTN_down.Size = New System.Drawing.Size(95, 23)
+        Me.BTN_down.Size = New System.Drawing.Size(127, 28)
         Me.BTN_down.TabIndex = 1
         Me.BTN_down.Text = "ab"
         Me.BTN_down.UseVisualStyleBackColor = True
@@ -835,9 +884,10 @@ Partial Class Form1
         'BTN_up
         '
         Me.BTN_up.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.BTN_up.Location = New System.Drawing.Point(6, 21)
+        Me.BTN_up.Location = New System.Drawing.Point(8, 26)
+        Me.BTN_up.Margin = New System.Windows.Forms.Padding(4)
         Me.BTN_up.Name = "BTN_up"
-        Me.BTN_up.Size = New System.Drawing.Size(95, 23)
+        Me.BTN_up.Size = New System.Drawing.Size(127, 28)
         Me.BTN_up.TabIndex = 0
         Me.BTN_up.Text = "auf"
         Me.BTN_up.UseVisualStyleBackColor = True
@@ -846,18 +896,20 @@ Partial Class Form1
         '
         Me.CBox_DokVorlage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBox_DokVorlage.FormattingEnabled = True
-        Me.CBox_DokVorlage.Location = New System.Drawing.Point(326, 223)
+        Me.CBox_DokVorlage.Location = New System.Drawing.Point(435, 445)
+        Me.CBox_DokVorlage.Margin = New System.Windows.Forms.Padding(4)
         Me.CBox_DokVorlage.Name = "CBox_DokVorlage"
-        Me.CBox_DokVorlage.Size = New System.Drawing.Size(363, 24)
+        Me.CBox_DokVorlage.Size = New System.Drawing.Size(483, 28)
         Me.CBox_DokVorlage.TabIndex = 21
         '
         'Label34
         '
         Me.Label34.AutoSize = True
         Me.Label34.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label34.Location = New System.Drawing.Point(323, 205)
+        Me.Label34.Location = New System.Drawing.Point(431, 423)
+        Me.Label34.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(130, 16)
+        Me.Label34.Size = New System.Drawing.Size(157, 20)
         Me.Label34.TabIndex = 20
         Me.Label34.Text = "Dokumentenvorlage"
         '
@@ -867,144 +919,167 @@ Partial Class Form1
         Me.CBox_Vertreter.DisplayMember = "angezeigterName"
         Me.CBox_Vertreter.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBox_Vertreter.FormattingEnabled = True
-        Me.CBox_Vertreter.Location = New System.Drawing.Point(326, 180)
+        Me.CBox_Vertreter.Location = New System.Drawing.Point(435, 393)
+        Me.CBox_Vertreter.Margin = New System.Windows.Forms.Padding(4)
         Me.CBox_Vertreter.Name = "CBox_Vertreter"
-        Me.CBox_Vertreter.Size = New System.Drawing.Size(363, 24)
+        Me.CBox_Vertreter.Size = New System.Drawing.Size(483, 28)
         Me.CBox_Vertreter.TabIndex = 19
         '
         'Label33
         '
         Me.Label33.AutoSize = True
         Me.Label33.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label33.Location = New System.Drawing.Point(323, 161)
+        Me.Label33.Location = New System.Drawing.Point(431, 369)
+        Me.Label33.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(59, 16)
+        Me.Label33.Size = New System.Drawing.Size(75, 20)
         Me.Label33.TabIndex = 18
         Me.Label33.Text = "Vertreter"
         '
         'TB_Ort
         '
+        Me.TB_Ort.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.KundeBindingSource, "Ort", True))
         Me.TB_Ort.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TB_Ort.Location = New System.Drawing.Point(103, 223)
+        Me.TB_Ort.Location = New System.Drawing.Point(137, 274)
+        Me.TB_Ort.Margin = New System.Windows.Forms.Padding(4)
         Me.TB_Ort.Name = "TB_Ort"
-        Me.TB_Ort.Size = New System.Drawing.Size(196, 22)
+        Me.TB_Ort.Size = New System.Drawing.Size(260, 26)
         Me.TB_Ort.TabIndex = 13
         '
         'Label30
         '
         Me.Label30.AutoSize = True
         Me.Label30.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label30.Location = New System.Drawing.Point(100, 205)
+        Me.Label30.Location = New System.Drawing.Point(133, 252)
+        Me.Label30.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(25, 16)
+        Me.Label30.Size = New System.Drawing.Size(33, 20)
         Me.Label30.TabIndex = 12
         Me.Label30.Text = "Ort"
         '
         'TB_PLZ
         '
+        Me.TB_PLZ.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.KundeBindingSource, "PLZ", True))
         Me.TB_PLZ.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TB_PLZ.Location = New System.Drawing.Point(5, 223)
+        Me.TB_PLZ.Location = New System.Drawing.Point(7, 274)
+        Me.TB_PLZ.Margin = New System.Windows.Forms.Padding(4)
         Me.TB_PLZ.Name = "TB_PLZ"
-        Me.TB_PLZ.Size = New System.Drawing.Size(75, 22)
+        Me.TB_PLZ.Size = New System.Drawing.Size(99, 26)
         Me.TB_PLZ.TabIndex = 11
         '
         'Label29
         '
         Me.Label29.AutoSize = True
         Me.Label29.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label29.Location = New System.Drawing.Point(6, 202)
+        Me.Label29.Location = New System.Drawing.Point(8, 249)
+        Me.Label29.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(32, 16)
+        Me.Label29.Size = New System.Drawing.Size(39, 20)
         Me.Label29.TabIndex = 10
         Me.Label29.Text = "PLZ"
         '
         'TBox_Strasse
         '
+        Me.TBox_Strasse.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.KundeBindingSource, "Strasse", True))
         Me.TBox_Strasse.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_Strasse.Location = New System.Drawing.Point(5, 180)
+        Me.TBox_Strasse.Location = New System.Drawing.Point(7, 222)
+        Me.TBox_Strasse.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_Strasse.Name = "TBox_Strasse"
-        Me.TBox_Strasse.Size = New System.Drawing.Size(294, 22)
+        Me.TBox_Strasse.Size = New System.Drawing.Size(391, 26)
         Me.TBox_Strasse.TabIndex = 9
         '
         'Label28
         '
         Me.Label28.AutoSize = True
         Me.Label28.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label28.Location = New System.Drawing.Point(6, 161)
+        Me.Label28.Location = New System.Drawing.Point(8, 198)
+        Me.Label28.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(48, 16)
+        Me.Label28.Size = New System.Drawing.Size(59, 20)
         Me.Label28.TabIndex = 8
         Me.Label28.Text = "Straße"
         '
         'TBox_Name2
         '
+        Me.TBox_Name2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.KundeBindingSource, "Name2", True))
         Me.TBox_Name2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_Name2.Location = New System.Drawing.Point(326, 132)
+        Me.TBox_Name2.Location = New System.Drawing.Point(435, 162)
+        Me.TBox_Name2.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_Name2.Name = "TBox_Name2"
-        Me.TBox_Name2.Size = New System.Drawing.Size(363, 22)
+        Me.TBox_Name2.Size = New System.Drawing.Size(483, 26)
         Me.TBox_Name2.TabIndex = 7
         '
         'Label27
         '
         Me.Label27.AutoSize = True
         Me.Label27.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label27.Location = New System.Drawing.Point(323, 112)
+        Me.Label27.Location = New System.Drawing.Point(431, 138)
+        Me.Label27.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(52, 16)
+        Me.Label27.Size = New System.Drawing.Size(62, 20)
         Me.Label27.TabIndex = 6
         Me.Label27.Text = "Name2"
         '
         'TBox_Name1
         '
+        Me.TBox_Name1.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.KundeBindingSource, "Name1", True))
         Me.TBox_Name1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_Name1.Location = New System.Drawing.Point(5, 132)
+        Me.TBox_Name1.Location = New System.Drawing.Point(7, 162)
+        Me.TBox_Name1.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_Name1.Name = "TBox_Name1"
-        Me.TBox_Name1.Size = New System.Drawing.Size(294, 22)
+        Me.TBox_Name1.Size = New System.Drawing.Size(391, 26)
         Me.TBox_Name1.TabIndex = 5
         '
         'Label26
         '
         Me.Label26.AutoSize = True
         Me.Label26.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label26.Location = New System.Drawing.Point(6, 112)
+        Me.Label26.Location = New System.Drawing.Point(8, 138)
+        Me.Label26.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(52, 16)
+        Me.Label26.Size = New System.Drawing.Size(62, 20)
         Me.Label26.TabIndex = 4
         Me.Label26.Text = "Name1"
         '
         'TBox_Firma2
         '
+        Me.TBox_Firma2.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.KundeBindingSource, "Firma2", True))
         Me.TBox_Firma2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_Firma2.Location = New System.Drawing.Point(326, 88)
+        Me.TBox_Firma2.Location = New System.Drawing.Point(435, 108)
+        Me.TBox_Firma2.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_Firma2.Name = "TBox_Firma2"
-        Me.TBox_Firma2.Size = New System.Drawing.Size(363, 22)
+        Me.TBox_Firma2.Size = New System.Drawing.Size(483, 26)
         Me.TBox_Firma2.TabIndex = 3
         '
         'Label25
         '
         Me.Label25.AutoSize = True
         Me.Label25.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label25.Location = New System.Drawing.Point(323, 68)
+        Me.Label25.Location = New System.Drawing.Point(431, 84)
+        Me.Label25.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(49, 16)
+        Me.Label25.Size = New System.Drawing.Size(61, 20)
         Me.Label25.TabIndex = 2
         Me.Label25.Text = "Firma2"
         '
         'TBox_Firma1
         '
+        Me.TBox_Firma1.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.KundeBindingSource, "Firma1", True))
         Me.TBox_Firma1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_Firma1.Location = New System.Drawing.Point(5, 88)
+        Me.TBox_Firma1.Location = New System.Drawing.Point(7, 108)
+        Me.TBox_Firma1.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_Firma1.Name = "TBox_Firma1"
-        Me.TBox_Firma1.Size = New System.Drawing.Size(294, 22)
+        Me.TBox_Firma1.Size = New System.Drawing.Size(391, 26)
         Me.TBox_Firma1.TabIndex = 1
         '
         'Label24
         '
         Me.Label24.AutoSize = True
         Me.Label24.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.Location = New System.Drawing.Point(6, 68)
+        Me.Label24.Location = New System.Drawing.Point(8, 84)
+        Me.Label24.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(49, 16)
+        Me.Label24.Size = New System.Drawing.Size(61, 20)
         Me.Label24.TabIndex = 0
         Me.Label24.Text = "Firma1"
         '
@@ -1013,10 +1088,11 @@ Partial Class Form1
         Me.TabPage2.Controls.Add(Me.GroupBox7)
         Me.TabPage2.Controls.Add(Me.GroupBox5)
         Me.TabPage2.Controls.Add(Me.GroupBox2)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage2.Margin = New System.Windows.Forms.Padding(4)
         Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(709, 632)
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(4)
+        Me.TabPage2.Size = New System.Drawing.Size(949, 794)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Artikel"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -1028,9 +1104,11 @@ Partial Class Form1
         Me.GroupBox7.Controls.Add(Me.Label7)
         Me.GroupBox7.Controls.Add(Me.CBox_Produkt)
         Me.GroupBox7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox7.Location = New System.Drawing.Point(9, 6)
+        Me.GroupBox7.Location = New System.Drawing.Point(12, 7)
+        Me.GroupBox7.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(543, 100)
+        Me.GroupBox7.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox7.Size = New System.Drawing.Size(724, 123)
         Me.GroupBox7.TabIndex = 13
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Produktgruppe"
@@ -1039,9 +1117,10 @@ Partial Class Form1
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(6, 27)
+        Me.Label6.Location = New System.Drawing.Point(8, 33)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(66, 16)
+        Me.Label6.Size = New System.Drawing.Size(83, 20)
         Me.Label6.TabIndex = 0
         Me.Label6.Text = "Hersteller"
         '
@@ -1051,9 +1130,10 @@ Partial Class Form1
         Me.CBox_Hersteller.DisplayMember = "Hersteller"
         Me.CBox_Hersteller.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBox_Hersteller.FormattingEnabled = True
-        Me.CBox_Hersteller.Location = New System.Drawing.Point(9, 46)
+        Me.CBox_Hersteller.Location = New System.Drawing.Point(12, 57)
+        Me.CBox_Hersteller.Margin = New System.Windows.Forms.Padding(4)
         Me.CBox_Hersteller.Name = "CBox_Hersteller"
-        Me.CBox_Hersteller.Size = New System.Drawing.Size(222, 25)
+        Me.CBox_Hersteller.Size = New System.Drawing.Size(295, 28)
         Me.CBox_Hersteller.TabIndex = 1
         Me.CBox_Hersteller.ValueMember = "HerstellerID"
         '
@@ -1061,9 +1141,10 @@ Partial Class Form1
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(263, 27)
+        Me.Label7.Location = New System.Drawing.Point(351, 33)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(54, 16)
+        Me.Label7.Size = New System.Drawing.Size(66, 20)
         Me.Label7.TabIndex = 3
         Me.Label7.Text = "Produkt"
         '
@@ -1073,9 +1154,10 @@ Partial Class Form1
         Me.CBox_Produkt.DisplayMember = "ProduktTyp"
         Me.CBox_Produkt.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CBox_Produkt.FormattingEnabled = True
-        Me.CBox_Produkt.Location = New System.Drawing.Point(262, 46)
+        Me.CBox_Produkt.Location = New System.Drawing.Point(349, 57)
+        Me.CBox_Produkt.Margin = New System.Windows.Forms.Padding(4)
         Me.CBox_Produkt.Name = "CBox_Produkt"
-        Me.CBox_Produkt.Size = New System.Drawing.Size(264, 25)
+        Me.CBox_Produkt.Size = New System.Drawing.Size(351, 28)
         Me.CBox_Produkt.TabIndex = 2
         Me.CBox_Produkt.ValueMember = "ProduktID"
         '
@@ -1092,9 +1174,11 @@ Partial Class Form1
         Me.GroupBox5.Controls.Add(Me.Label11)
         Me.GroupBox5.Controls.Add(Me.Label10)
         Me.GroupBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox5.Location = New System.Drawing.Point(9, 458)
+        Me.GroupBox5.Location = New System.Drawing.Point(12, 564)
+        Me.GroupBox5.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(543, 168)
+        Me.GroupBox5.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox5.Size = New System.Drawing.Size(724, 207)
         Me.GroupBox5.TabIndex = 11
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Knotendaten"
@@ -1102,50 +1186,56 @@ Partial Class Form1
         'TBox_NodeSelImageIndex
         '
         Me.TBox_NodeSelImageIndex.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_NodeSelImageIndex.Location = New System.Drawing.Point(146, 132)
+        Me.TBox_NodeSelImageIndex.Location = New System.Drawing.Point(195, 162)
+        Me.TBox_NodeSelImageIndex.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_NodeSelImageIndex.Name = "TBox_NodeSelImageIndex"
-        Me.TBox_NodeSelImageIndex.Size = New System.Drawing.Size(343, 22)
+        Me.TBox_NodeSelImageIndex.Size = New System.Drawing.Size(456, 26)
         Me.TBox_NodeSelImageIndex.TabIndex = 9
         '
         'TBox_NodeImageIndex
         '
         Me.TBox_NodeImageIndex.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_NodeImageIndex.Location = New System.Drawing.Point(146, 104)
+        Me.TBox_NodeImageIndex.Location = New System.Drawing.Point(195, 128)
+        Me.TBox_NodeImageIndex.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_NodeImageIndex.Name = "TBox_NodeImageIndex"
-        Me.TBox_NodeImageIndex.Size = New System.Drawing.Size(343, 22)
+        Me.TBox_NodeImageIndex.Size = New System.Drawing.Size(456, 26)
         Me.TBox_NodeImageIndex.TabIndex = 8
         '
         'TBox_NodeTag
         '
         Me.TBox_NodeTag.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_NodeTag.Location = New System.Drawing.Point(146, 75)
+        Me.TBox_NodeTag.Location = New System.Drawing.Point(195, 92)
+        Me.TBox_NodeTag.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_NodeTag.Name = "TBox_NodeTag"
-        Me.TBox_NodeTag.Size = New System.Drawing.Size(343, 22)
+        Me.TBox_NodeTag.Size = New System.Drawing.Size(456, 26)
         Me.TBox_NodeTag.TabIndex = 7
         '
         'TBox_NodeName
         '
         Me.TBox_NodeName.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_NodeName.Location = New System.Drawing.Point(146, 46)
+        Me.TBox_NodeName.Location = New System.Drawing.Point(195, 57)
+        Me.TBox_NodeName.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_NodeName.Name = "TBox_NodeName"
-        Me.TBox_NodeName.Size = New System.Drawing.Size(343, 22)
+        Me.TBox_NodeName.Size = New System.Drawing.Size(456, 26)
         Me.TBox_NodeName.TabIndex = 6
         '
         'TBox_NodeText
         '
         Me.TBox_NodeText.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_NodeText.Location = New System.Drawing.Point(146, 17)
+        Me.TBox_NodeText.Location = New System.Drawing.Point(195, 21)
+        Me.TBox_NodeText.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_NodeText.Name = "TBox_NodeText"
-        Me.TBox_NodeText.Size = New System.Drawing.Size(343, 22)
+        Me.TBox_NodeText.Size = New System.Drawing.Size(456, 26)
         Me.TBox_NodeText.TabIndex = 5
         '
         'Label14
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(6, 135)
+        Me.Label14.Location = New System.Drawing.Point(8, 166)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(98, 16)
+        Me.Label14.Size = New System.Drawing.Size(117, 20)
         Me.Label14.TabIndex = 4
         Me.Label14.Text = "SelImageIndex"
         '
@@ -1153,9 +1243,10 @@ Partial Class Form1
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(6, 107)
+        Me.Label13.Location = New System.Drawing.Point(8, 132)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(78, 16)
+        Me.Label13.Size = New System.Drawing.Size(93, 20)
         Me.Label13.TabIndex = 3
         Me.Label13.Text = "ImageIndex"
         '
@@ -1163,9 +1254,10 @@ Partial Class Form1
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(6, 78)
+        Me.Label12.Location = New System.Drawing.Point(8, 96)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(94, 16)
+        Me.Label12.Size = New System.Drawing.Size(118, 20)
         Me.Label12.TabIndex = 2
         Me.Label12.Text = "Tag (ArtikelID)"
         '
@@ -1173,9 +1265,10 @@ Partial Class Form1
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(6, 49)
+        Me.Label11.Location = New System.Drawing.Point(8, 60)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(115, 16)
+        Me.Label11.Size = New System.Drawing.Size(144, 20)
         Me.Label11.TabIndex = 1
         Me.Label11.Text = "Name (ProduktID)"
         '
@@ -1183,9 +1276,10 @@ Partial Class Form1
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(6, 20)
+        Me.Label10.Location = New System.Drawing.Point(8, 25)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(34, 16)
+        Me.Label10.Size = New System.Drawing.Size(41, 20)
         Me.Label10.TabIndex = 0
         Me.Label10.Text = "Text"
         '
@@ -1209,9 +1303,11 @@ Partial Class Form1
         Me.GroupBox2.Controls.Add(Me.Label16)
         Me.GroupBox2.Controls.Add(Me.Label15)
         Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(9, 110)
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 135)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(543, 342)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
+        Me.GroupBox2.Size = New System.Drawing.Size(724, 421)
         Me.GroupBox2.TabIndex = 3
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Artikel"
@@ -1220,20 +1316,21 @@ Partial Class Form1
         '
         Me.MaskedTBox_Artikelnummer.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArtikelBindingSource, "Artikelnr", True))
         Me.MaskedTBox_Artikelnummer.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MaskedTBox_Artikelnummer.Location = New System.Drawing.Point(9, 93)
-        Me.MaskedTBox_Artikelnummer.Margin = New System.Windows.Forms.Padding(2)
+        Me.MaskedTBox_Artikelnummer.Location = New System.Drawing.Point(12, 114)
+        Me.MaskedTBox_Artikelnummer.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.MaskedTBox_Artikelnummer.Mask = "00-0000-0000"
         Me.MaskedTBox_Artikelnummer.Name = "MaskedTBox_Artikelnummer"
-        Me.MaskedTBox_Artikelnummer.Size = New System.Drawing.Size(100, 23)
+        Me.MaskedTBox_Artikelnummer.Size = New System.Drawing.Size(132, 27)
         Me.MaskedTBox_Artikelnummer.TabIndex = 33
         Me.MaskedTBox_Artikelnummer.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt
         '
         'Btn_URL_Artikel
         '
         Me.Btn_URL_Artikel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Btn_URL_Artikel.Location = New System.Drawing.Point(492, 305)
+        Me.Btn_URL_Artikel.Location = New System.Drawing.Point(656, 375)
+        Me.Btn_URL_Artikel.Margin = New System.Windows.Forms.Padding(4)
         Me.Btn_URL_Artikel.Name = "Btn_URL_Artikel"
-        Me.Btn_URL_Artikel.Size = New System.Drawing.Size(34, 23)
+        Me.Btn_URL_Artikel.Size = New System.Drawing.Size(45, 28)
         Me.Btn_URL_Artikel.TabIndex = 27
         Me.Btn_URL_Artikel.Text = "..."
         Me.Btn_URL_Artikel.UseVisualStyleBackColor = True
@@ -1242,64 +1339,71 @@ Partial Class Form1
         '
         Me.TBox_URL_Artikel.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArtikelBindingSource, "URL", True))
         Me.TBox_URL_Artikel.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_URL_Artikel.Location = New System.Drawing.Point(6, 305)
+        Me.TBox_URL_Artikel.Location = New System.Drawing.Point(8, 375)
+        Me.TBox_URL_Artikel.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_URL_Artikel.Name = "TBox_URL_Artikel"
-        Me.TBox_URL_Artikel.Size = New System.Drawing.Size(480, 23)
+        Me.TBox_URL_Artikel.Size = New System.Drawing.Size(639, 27)
         Me.TBox_URL_Artikel.TabIndex = 26
         '
         'TBox_Faktor
         '
         Me.TBox_Faktor.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArtikelBindingSource, "Faktor", True))
         Me.TBox_Faktor.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_Faktor.Location = New System.Drawing.Point(388, 94)
+        Me.TBox_Faktor.Location = New System.Drawing.Point(517, 116)
+        Me.TBox_Faktor.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_Faktor.Name = "TBox_Faktor"
-        Me.TBox_Faktor.Size = New System.Drawing.Size(138, 23)
+        Me.TBox_Faktor.Size = New System.Drawing.Size(183, 27)
         Me.TBox_Faktor.TabIndex = 25
         '
         'MaskedTBox_VK
         '
         Me.MaskedTBox_VK.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArtikelBindingSource, "VKPreis", True))
         Me.MaskedTBox_VK.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MaskedTBox_VK.Location = New System.Drawing.Point(261, 93)
+        Me.MaskedTBox_VK.Location = New System.Drawing.Point(348, 114)
+        Me.MaskedTBox_VK.Margin = New System.Windows.Forms.Padding(4)
         Me.MaskedTBox_VK.Name = "MaskedTBox_VK"
-        Me.MaskedTBox_VK.Size = New System.Drawing.Size(100, 23)
+        Me.MaskedTBox_VK.Size = New System.Drawing.Size(132, 27)
         Me.MaskedTBox_VK.TabIndex = 24
         '
         'MaskedTBox_EK
         '
         Me.MaskedTBox_EK.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArtikelBindingSource, "EKPreis", True))
         Me.MaskedTBox_EK.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MaskedTBox_EK.Location = New System.Drawing.Point(131, 94)
+        Me.MaskedTBox_EK.Location = New System.Drawing.Point(175, 116)
+        Me.MaskedTBox_EK.Margin = New System.Windows.Forms.Padding(4)
         Me.MaskedTBox_EK.Name = "MaskedTBox_EK"
-        Me.MaskedTBox_EK.Size = New System.Drawing.Size(100, 23)
+        Me.MaskedTBox_EK.Size = New System.Drawing.Size(132, 27)
         Me.MaskedTBox_EK.TabIndex = 23
         '
         'TBox_Beschreibung
         '
         Me.TBox_Beschreibung.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArtikelBindingSource, "Beschreibung", True))
         Me.TBox_Beschreibung.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_Beschreibung.Location = New System.Drawing.Point(6, 146)
+        Me.TBox_Beschreibung.Location = New System.Drawing.Point(8, 180)
+        Me.TBox_Beschreibung.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_Beschreibung.Multiline = True
         Me.TBox_Beschreibung.Name = "TBox_Beschreibung"
-        Me.TBox_Beschreibung.Size = New System.Drawing.Size(520, 137)
+        Me.TBox_Beschreibung.Size = New System.Drawing.Size(692, 168)
         Me.TBox_Beschreibung.TabIndex = 22
         '
         'TBox_Angebotstext
         '
         Me.TBox_Angebotstext.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArtikelBindingSource, "Artikelkurztext", True))
         Me.TBox_Angebotstext.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_Angebotstext.Location = New System.Drawing.Point(9, 49)
+        Me.TBox_Angebotstext.Location = New System.Drawing.Point(12, 60)
+        Me.TBox_Angebotstext.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_Angebotstext.Name = "TBox_Angebotstext"
-        Me.TBox_Angebotstext.Size = New System.Drawing.Size(352, 23)
+        Me.TBox_Angebotstext.Size = New System.Drawing.Size(468, 27)
         Me.TBox_Angebotstext.TabIndex = 21
         '
         'Label22
         '
         Me.Label22.AutoSize = True
         Me.Label22.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label22.Location = New System.Drawing.Point(9, 286)
+        Me.Label22.Location = New System.Drawing.Point(12, 352)
+        Me.Label22.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(90, 16)
+        Me.Label22.Size = New System.Drawing.Size(114, 20)
         Me.Label22.TabIndex = 20
         Me.Label22.Text = "Baustein URL"
         '
@@ -1307,18 +1411,20 @@ Partial Class Form1
         '
         Me.TBox_Rubrik.DataBindings.Add(New System.Windows.Forms.Binding("Text", Me.ArtikelBindingSource, "Rubrik", True))
         Me.TBox_Rubrik.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TBox_Rubrik.Location = New System.Drawing.Point(388, 49)
+        Me.TBox_Rubrik.Location = New System.Drawing.Point(517, 60)
+        Me.TBox_Rubrik.Margin = New System.Windows.Forms.Padding(4)
         Me.TBox_Rubrik.Name = "TBox_Rubrik"
-        Me.TBox_Rubrik.Size = New System.Drawing.Size(137, 23)
+        Me.TBox_Rubrik.Size = New System.Drawing.Size(181, 27)
         Me.TBox_Rubrik.TabIndex = 19
         '
         'Label21
         '
         Me.Label21.AutoSize = True
         Me.Label21.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label21.Location = New System.Drawing.Point(385, 75)
+        Me.Label21.Location = New System.Drawing.Point(513, 92)
+        Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(46, 16)
+        Me.Label21.Size = New System.Drawing.Size(56, 20)
         Me.Label21.TabIndex = 17
         Me.Label21.Text = "Faktor"
         '
@@ -1326,9 +1432,10 @@ Partial Class Form1
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(258, 75)
+        Me.Label20.Location = New System.Drawing.Point(344, 92)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(59, 16)
+        Me.Label20.Size = New System.Drawing.Size(75, 20)
         Me.Label20.TabIndex = 16
         Me.Label20.Text = "VK Preis"
         '
@@ -1336,9 +1443,10 @@ Partial Class Form1
         '
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(128, 75)
+        Me.Label19.Location = New System.Drawing.Point(171, 92)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(59, 16)
+        Me.Label19.Size = New System.Drawing.Size(75, 20)
         Me.Label19.TabIndex = 15
         Me.Label19.Text = "EK Preis"
         '
@@ -1346,9 +1454,10 @@ Partial Class Form1
         '
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(9, 127)
+        Me.Label18.Location = New System.Drawing.Point(12, 156)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(91, 16)
+        Me.Label18.Size = New System.Drawing.Size(112, 20)
         Me.Label18.TabIndex = 14
         Me.Label18.Text = "Beschreibung"
         '
@@ -1356,9 +1465,10 @@ Partial Class Form1
         '
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(6, 30)
+        Me.Label17.Location = New System.Drawing.Point(8, 37)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(89, 16)
+        Me.Label17.Size = New System.Drawing.Size(115, 20)
         Me.Label17.TabIndex = 13
         Me.Label17.Text = "Artikelkurztext"
         '
@@ -1366,9 +1476,10 @@ Partial Class Form1
         '
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(385, 30)
+        Me.Label16.Location = New System.Drawing.Point(513, 37)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(47, 16)
+        Me.Label16.Size = New System.Drawing.Size(57, 20)
         Me.Label16.TabIndex = 12
         Me.Label16.Text = "Rubrik"
         '
@@ -1376,18 +1487,20 @@ Partial Class Form1
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(9, 75)
+        Me.Label15.Location = New System.Drawing.Point(12, 92)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(93, 16)
+        Me.Label15.Size = New System.Drawing.Size(117, 20)
         Me.Label15.TabIndex = 11
         Me.Label15.Text = "Artikelnummer"
         '
         'TabPage3
         '
         Me.TabPage3.Controls.Add(Me.DataGridView1)
-        Me.TabPage3.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage3.Margin = New System.Windows.Forms.Padding(4)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(709, 632)
+        Me.TabPage3.Size = New System.Drawing.Size(949, 794)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Hersteller"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -1401,9 +1514,10 @@ Partial Class Form1
         Me.DataGridView1.DataSource = Me.HerstellerBindingSource
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
+        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView1.MultiSelect = False
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(709, 632)
+        Me.DataGridView1.Size = New System.Drawing.Size(949, 794)
         Me.DataGridView1.TabIndex = 0
         '
         'HerstellerIDDataGridViewTextBoxColumn
@@ -1411,28 +1525,29 @@ Partial Class Form1
         Me.HerstellerIDDataGridViewTextBoxColumn.DataPropertyName = "HerstellerID"
         Me.HerstellerIDDataGridViewTextBoxColumn.HeaderText = "HerstellerID"
         Me.HerstellerIDDataGridViewTextBoxColumn.Name = "HerstellerIDDataGridViewTextBoxColumn"
-        Me.HerstellerIDDataGridViewTextBoxColumn.Width = 104
+        Me.HerstellerIDDataGridViewTextBoxColumn.Width = 129
         '
         'HerstellerDataGridViewTextBoxColumn
         '
         Me.HerstellerDataGridViewTextBoxColumn.DataPropertyName = "Hersteller"
         Me.HerstellerDataGridViewTextBoxColumn.HeaderText = "Hersteller"
         Me.HerstellerDataGridViewTextBoxColumn.Name = "HerstellerDataGridViewTextBoxColumn"
-        Me.HerstellerDataGridViewTextBoxColumn.Width = 91
+        Me.HerstellerDataGridViewTextBoxColumn.Width = 112
         '
         'URLDataGridViewTextBoxColumn
         '
         Me.URLDataGridViewTextBoxColumn.DataPropertyName = "URL"
         Me.URLDataGridViewTextBoxColumn.HeaderText = "URL"
         Me.URLDataGridViewTextBoxColumn.Name = "URLDataGridViewTextBoxColumn"
-        Me.URLDataGridViewTextBoxColumn.Width = 60
+        Me.URLDataGridViewTextBoxColumn.Width = 72
         '
         'TabPage4
         '
         Me.TabPage4.Controls.Add(Me.DataGridView2)
-        Me.TabPage4.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage4.Margin = New System.Windows.Forms.Padding(4)
         Me.TabPage4.Name = "TabPage4"
-        Me.TabPage4.Size = New System.Drawing.Size(709, 632)
+        Me.TabPage4.Size = New System.Drawing.Size(949, 794)
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "Produkt"
         Me.TabPage4.UseVisualStyleBackColor = True
@@ -1446,9 +1561,10 @@ Partial Class Form1
         Me.DataGridView2.DataSource = Me.ProduktBindingSource
         Me.DataGridView2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView2.Location = New System.Drawing.Point(0, 0)
+        Me.DataGridView2.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView2.MultiSelect = False
         Me.DataGridView2.Name = "DataGridView2"
-        Me.DataGridView2.Size = New System.Drawing.Size(709, 632)
+        Me.DataGridView2.Size = New System.Drawing.Size(949, 794)
         Me.DataGridView2.TabIndex = 0
         '
         'ProduktIDDataGridViewTextBoxColumn
@@ -1456,42 +1572,43 @@ Partial Class Form1
         Me.ProduktIDDataGridViewTextBoxColumn.DataPropertyName = "ProduktID"
         Me.ProduktIDDataGridViewTextBoxColumn.HeaderText = "ProduktID"
         Me.ProduktIDDataGridViewTextBoxColumn.Name = "ProduktIDDataGridViewTextBoxColumn"
-        Me.ProduktIDDataGridViewTextBoxColumn.Width = 92
+        Me.ProduktIDDataGridViewTextBoxColumn.Width = 112
         '
         'KategorieDataGridViewTextBoxColumn
         '
         Me.KategorieDataGridViewTextBoxColumn.DataPropertyName = "Kategorie"
         Me.KategorieDataGridViewTextBoxColumn.HeaderText = "Kategorie"
         Me.KategorieDataGridViewTextBoxColumn.Name = "KategorieDataGridViewTextBoxColumn"
-        Me.KategorieDataGridViewTextBoxColumn.Width = 91
+        Me.KategorieDataGridViewTextBoxColumn.Width = 109
         '
         'ProduktTypDataGridViewTextBoxColumn
         '
         Me.ProduktTypDataGridViewTextBoxColumn.DataPropertyName = "ProduktTyp"
         Me.ProduktTypDataGridViewTextBoxColumn.HeaderText = "ProduktTyp"
         Me.ProduktTypDataGridViewTextBoxColumn.Name = "ProduktTypDataGridViewTextBoxColumn"
-        Me.ProduktTypDataGridViewTextBoxColumn.Width = 103
+        Me.ProduktTypDataGridViewTextBoxColumn.Width = 122
         '
         'HerstellerIDDataGridViewTextBoxColumn1
         '
         Me.HerstellerIDDataGridViewTextBoxColumn1.DataPropertyName = "HerstellerID"
         Me.HerstellerIDDataGridViewTextBoxColumn1.HeaderText = "HerstellerID"
         Me.HerstellerIDDataGridViewTextBoxColumn1.Name = "HerstellerIDDataGridViewTextBoxColumn1"
-        Me.HerstellerIDDataGridViewTextBoxColumn1.Width = 104
+        Me.HerstellerIDDataGridViewTextBoxColumn1.Width = 129
         '
         'URLDataGridViewTextBoxColumn1
         '
         Me.URLDataGridViewTextBoxColumn1.DataPropertyName = "URL"
         Me.URLDataGridViewTextBoxColumn1.HeaderText = "URL"
         Me.URLDataGridViewTextBoxColumn1.Name = "URLDataGridViewTextBoxColumn1"
-        Me.URLDataGridViewTextBoxColumn1.Width = 60
+        Me.URLDataGridViewTextBoxColumn1.Width = 72
         '
         'TabPage5
         '
         Me.TabPage5.Controls.Add(Me.DataGridView3)
-        Me.TabPage5.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage5.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage5.Margin = New System.Windows.Forms.Padding(4)
         Me.TabPage5.Name = "TabPage5"
-        Me.TabPage5.Size = New System.Drawing.Size(709, 632)
+        Me.TabPage5.Size = New System.Drawing.Size(949, 794)
         Me.TabPage5.TabIndex = 4
         Me.TabPage5.Text = "Artikel"
         Me.TabPage5.UseVisualStyleBackColor = True
@@ -1505,9 +1622,10 @@ Partial Class Form1
         Me.DataGridView3.DataSource = Me.ArtikelBindingSource
         Me.DataGridView3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView3.Location = New System.Drawing.Point(0, 0)
+        Me.DataGridView3.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView3.MultiSelect = False
         Me.DataGridView3.Name = "DataGridView3"
-        Me.DataGridView3.Size = New System.Drawing.Size(709, 632)
+        Me.DataGridView3.Size = New System.Drawing.Size(949, 794)
         Me.DataGridView3.TabIndex = 0
         '
         'ArtikelIDDataGridViewTextBoxColumn1
@@ -1515,77 +1633,78 @@ Partial Class Form1
         Me.ArtikelIDDataGridViewTextBoxColumn1.DataPropertyName = "ArtikelID"
         Me.ArtikelIDDataGridViewTextBoxColumn1.HeaderText = "ArtikelID"
         Me.ArtikelIDDataGridViewTextBoxColumn1.Name = "ArtikelIDDataGridViewTextBoxColumn1"
-        Me.ArtikelIDDataGridViewTextBoxColumn1.Width = 83
+        Me.ArtikelIDDataGridViewTextBoxColumn1.Width = 102
         '
         'ProduktIDDataGridViewTextBoxColumn2
         '
         Me.ProduktIDDataGridViewTextBoxColumn2.DataPropertyName = "ProduktID"
         Me.ProduktIDDataGridViewTextBoxColumn2.HeaderText = "ProduktID"
         Me.ProduktIDDataGridViewTextBoxColumn2.Name = "ProduktIDDataGridViewTextBoxColumn2"
-        Me.ProduktIDDataGridViewTextBoxColumn2.Width = 92
+        Me.ProduktIDDataGridViewTextBoxColumn2.Width = 112
         '
         'DataGridViewTextBoxColumn2
         '
         Me.DataGridViewTextBoxColumn2.DataPropertyName = "lfdNrPosAG"
         Me.DataGridViewTextBoxColumn2.HeaderText = "lfdNrPosAG"
         Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.Width = 104
+        Me.DataGridViewTextBoxColumn2.Width = 127
         '
         'URLDataGridViewTextBoxColumn3
         '
         Me.URLDataGridViewTextBoxColumn3.DataPropertyName = "URL"
         Me.URLDataGridViewTextBoxColumn3.HeaderText = "URL"
         Me.URLDataGridViewTextBoxColumn3.Name = "URLDataGridViewTextBoxColumn3"
-        Me.URLDataGridViewTextBoxColumn3.Width = 60
+        Me.URLDataGridViewTextBoxColumn3.Width = 72
         '
         'RubrikDataGridViewTextBoxColumn1
         '
         Me.RubrikDataGridViewTextBoxColumn1.DataPropertyName = "Rubrik"
         Me.RubrikDataGridViewTextBoxColumn1.HeaderText = "Rubrik"
         Me.RubrikDataGridViewTextBoxColumn1.Name = "RubrikDataGridViewTextBoxColumn1"
-        Me.RubrikDataGridViewTextBoxColumn1.Width = 72
+        Me.RubrikDataGridViewTextBoxColumn1.Width = 86
         '
         'BeschreibungDataGridViewTextBoxColumn1
         '
         Me.BeschreibungDataGridViewTextBoxColumn1.DataPropertyName = "Beschreibung"
         Me.BeschreibungDataGridViewTextBoxColumn1.HeaderText = "Beschreibung"
         Me.BeschreibungDataGridViewTextBoxColumn1.Name = "BeschreibungDataGridViewTextBoxColumn1"
-        Me.BeschreibungDataGridViewTextBoxColumn1.Width = 116
+        Me.BeschreibungDataGridViewTextBoxColumn1.Width = 141
         '
         'EKPreisDataGridViewTextBoxColumn1
         '
         Me.EKPreisDataGridViewTextBoxColumn1.DataPropertyName = "EKPreis"
         Me.EKPreisDataGridViewTextBoxColumn1.HeaderText = "EKPreis"
         Me.EKPreisDataGridViewTextBoxColumn1.Name = "EKPreisDataGridViewTextBoxColumn1"
-        Me.EKPreisDataGridViewTextBoxColumn1.Width = 81
+        Me.EKPreisDataGridViewTextBoxColumn1.Width = 99
         '
         'VKPreisDataGridViewTextBoxColumn1
         '
         Me.VKPreisDataGridViewTextBoxColumn1.DataPropertyName = "VKPreis"
         Me.VKPreisDataGridViewTextBoxColumn1.HeaderText = "VKPreis"
         Me.VKPreisDataGridViewTextBoxColumn1.Name = "VKPreisDataGridViewTextBoxColumn1"
-        Me.VKPreisDataGridViewTextBoxColumn1.Width = 81
+        Me.VKPreisDataGridViewTextBoxColumn1.Width = 99
         '
         'FaktorDataGridViewTextBoxColumn1
         '
         Me.FaktorDataGridViewTextBoxColumn1.DataPropertyName = "Faktor"
         Me.FaktorDataGridViewTextBoxColumn1.HeaderText = "Faktor"
         Me.FaktorDataGridViewTextBoxColumn1.Name = "FaktorDataGridViewTextBoxColumn1"
-        Me.FaktorDataGridViewTextBoxColumn1.Width = 71
+        Me.FaktorDataGridViewTextBoxColumn1.Width = 85
         '
         'AGSelectedDataGridViewCheckBoxColumn1
         '
         Me.AGSelectedDataGridViewCheckBoxColumn1.DataPropertyName = "AGSelected"
         Me.AGSelectedDataGridViewCheckBoxColumn1.HeaderText = "AGSelected"
         Me.AGSelectedDataGridViewCheckBoxColumn1.Name = "AGSelectedDataGridViewCheckBoxColumn1"
-        Me.AGSelectedDataGridViewCheckBoxColumn1.Width = 87
+        Me.AGSelectedDataGridViewCheckBoxColumn1.Width = 104
         '
         'TabPage6
         '
         Me.TabPage6.Controls.Add(Me.DataGridView4)
-        Me.TabPage6.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage6.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage6.Margin = New System.Windows.Forms.Padding(4)
         Me.TabPage6.Name = "TabPage6"
-        Me.TabPage6.Size = New System.Drawing.Size(709, 632)
+        Me.TabPage6.Size = New System.Drawing.Size(949, 794)
         Me.TabPage6.TabIndex = 5
         Me.TabPage6.Text = "DebugArtikel"
         Me.TabPage6.UseVisualStyleBackColor = True
@@ -1597,8 +1716,9 @@ Partial Class Form1
         Me.DataGridView4.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.ArtikelIDDataGridViewTextBoxColumn2, Me.ProduktIDDataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn1, Me.URLDataGridViewTextBoxColumn2, Me.ArtikelnummerDataGridViewTextBoxColumn, Me.RubrikDataGridViewTextBoxColumn, Me.BeschreibungDataGridViewTextBoxColumn, Me.EKPreisDataGridViewTextBoxColumn, Me.VKPreisDataGridViewTextBoxColumn, Me.FaktorDataGridViewTextBoxColumn, Me.AGSelectedDataGridViewCheckBoxColumn})
         Me.DataGridView4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DataGridView4.Location = New System.Drawing.Point(0, 0)
+        Me.DataGridView4.Margin = New System.Windows.Forms.Padding(4)
         Me.DataGridView4.Name = "DataGridView4"
-        Me.DataGridView4.Size = New System.Drawing.Size(709, 632)
+        Me.DataGridView4.Size = New System.Drawing.Size(949, 794)
         Me.DataGridView4.TabIndex = 0
         '
         'ArtikelIDDataGridViewTextBoxColumn2
@@ -1606,86 +1726,86 @@ Partial Class Form1
         Me.ArtikelIDDataGridViewTextBoxColumn2.DataPropertyName = "ArtikelID"
         Me.ArtikelIDDataGridViewTextBoxColumn2.HeaderText = "ArtikelID"
         Me.ArtikelIDDataGridViewTextBoxColumn2.Name = "ArtikelIDDataGridViewTextBoxColumn2"
-        Me.ArtikelIDDataGridViewTextBoxColumn2.Width = 83
+        Me.ArtikelIDDataGridViewTextBoxColumn2.Width = 102
         '
         'ProduktIDDataGridViewTextBoxColumn1
         '
         Me.ProduktIDDataGridViewTextBoxColumn1.DataPropertyName = "ProduktID"
         Me.ProduktIDDataGridViewTextBoxColumn1.HeaderText = "ProduktID"
         Me.ProduktIDDataGridViewTextBoxColumn1.Name = "ProduktIDDataGridViewTextBoxColumn1"
-        Me.ProduktIDDataGridViewTextBoxColumn1.Width = 92
+        Me.ProduktIDDataGridViewTextBoxColumn1.Width = 112
         '
         'DataGridViewTextBoxColumn1
         '
         Me.DataGridViewTextBoxColumn1.DataPropertyName = "lfdNrPosAG"
         Me.DataGridViewTextBoxColumn1.HeaderText = "lfdNrPosAG"
         Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.Width = 104
+        Me.DataGridViewTextBoxColumn1.Width = 127
         '
         'URLDataGridViewTextBoxColumn2
         '
         Me.URLDataGridViewTextBoxColumn2.DataPropertyName = "URL"
         Me.URLDataGridViewTextBoxColumn2.HeaderText = "URL"
         Me.URLDataGridViewTextBoxColumn2.Name = "URLDataGridViewTextBoxColumn2"
-        Me.URLDataGridViewTextBoxColumn2.Width = 60
+        Me.URLDataGridViewTextBoxColumn2.Width = 72
         '
         'ArtikelnummerDataGridViewTextBoxColumn
         '
         Me.ArtikelnummerDataGridViewTextBoxColumn.DataPropertyName = "Artikelnummer"
         Me.ArtikelnummerDataGridViewTextBoxColumn.HeaderText = "Artikelnummer"
         Me.ArtikelnummerDataGridViewTextBoxColumn.Name = "ArtikelnummerDataGridViewTextBoxColumn"
-        Me.ArtikelnummerDataGridViewTextBoxColumn.Width = 118
+        Me.ArtikelnummerDataGridViewTextBoxColumn.Width = 146
         '
         'RubrikDataGridViewTextBoxColumn
         '
         Me.RubrikDataGridViewTextBoxColumn.DataPropertyName = "Rubrik"
         Me.RubrikDataGridViewTextBoxColumn.HeaderText = "Rubrik"
         Me.RubrikDataGridViewTextBoxColumn.Name = "RubrikDataGridViewTextBoxColumn"
-        Me.RubrikDataGridViewTextBoxColumn.Width = 72
+        Me.RubrikDataGridViewTextBoxColumn.Width = 86
         '
         'BeschreibungDataGridViewTextBoxColumn
         '
         Me.BeschreibungDataGridViewTextBoxColumn.DataPropertyName = "Beschreibung"
         Me.BeschreibungDataGridViewTextBoxColumn.HeaderText = "Beschreibung"
         Me.BeschreibungDataGridViewTextBoxColumn.Name = "BeschreibungDataGridViewTextBoxColumn"
-        Me.BeschreibungDataGridViewTextBoxColumn.Width = 116
+        Me.BeschreibungDataGridViewTextBoxColumn.Width = 141
         '
         'EKPreisDataGridViewTextBoxColumn
         '
         Me.EKPreisDataGridViewTextBoxColumn.DataPropertyName = "EKPreis"
         Me.EKPreisDataGridViewTextBoxColumn.HeaderText = "EKPreis"
         Me.EKPreisDataGridViewTextBoxColumn.Name = "EKPreisDataGridViewTextBoxColumn"
-        Me.EKPreisDataGridViewTextBoxColumn.Width = 81
+        Me.EKPreisDataGridViewTextBoxColumn.Width = 99
         '
         'VKPreisDataGridViewTextBoxColumn
         '
         Me.VKPreisDataGridViewTextBoxColumn.DataPropertyName = "VKPreis"
         Me.VKPreisDataGridViewTextBoxColumn.HeaderText = "VKPreis"
         Me.VKPreisDataGridViewTextBoxColumn.Name = "VKPreisDataGridViewTextBoxColumn"
-        Me.VKPreisDataGridViewTextBoxColumn.Width = 81
+        Me.VKPreisDataGridViewTextBoxColumn.Width = 99
         '
         'FaktorDataGridViewTextBoxColumn
         '
         Me.FaktorDataGridViewTextBoxColumn.DataPropertyName = "Faktor"
         Me.FaktorDataGridViewTextBoxColumn.HeaderText = "Faktor"
         Me.FaktorDataGridViewTextBoxColumn.Name = "FaktorDataGridViewTextBoxColumn"
-        Me.FaktorDataGridViewTextBoxColumn.Width = 71
+        Me.FaktorDataGridViewTextBoxColumn.Width = 85
         '
         'AGSelectedDataGridViewCheckBoxColumn
         '
         Me.AGSelectedDataGridViewCheckBoxColumn.DataPropertyName = "AGSelected"
         Me.AGSelectedDataGridViewCheckBoxColumn.HeaderText = "AGSelected"
         Me.AGSelectedDataGridViewCheckBoxColumn.Name = "AGSelectedDataGridViewCheckBoxColumn"
-        Me.AGSelectedDataGridViewCheckBoxColumn.Width = 87
+        Me.AGSelectedDataGridViewCheckBoxColumn.Width = 104
         '
         'TabPage7
         '
         Me.TabPage7.Controls.Add(Me.DataGridView6)
-        Me.TabPage7.Location = New System.Drawing.Point(4, 25)
-        Me.TabPage7.Margin = New System.Windows.Forms.Padding(2)
+        Me.TabPage7.Location = New System.Drawing.Point(4, 29)
+        Me.TabPage7.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TabPage7.Name = "TabPage7"
-        Me.TabPage7.Padding = New System.Windows.Forms.Padding(2)
-        Me.TabPage7.Size = New System.Drawing.Size(709, 632)
+        Me.TabPage7.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.TabPage7.Size = New System.Drawing.Size(949, 794)
         Me.TabPage7.TabIndex = 6
         Me.TabPage7.Text = "Spezifikation"
         Me.TabPage7.UseVisualStyleBackColor = True
@@ -1697,11 +1817,11 @@ Partial Class Form1
         Me.DataGridView6.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.OptionIDDataGridViewTextBoxColumn1, Me.AngebotsnummerDataGridViewTextBoxColumn1, Me.ArtikelIDDataGridViewTextBoxColumn3, Me.SortRowDataGridViewTextBoxColumn1})
         Me.DataGridView6.DataSource = Me.SpezOptionenBindingSource
         Me.DataGridView6.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DataGridView6.Location = New System.Drawing.Point(2, 2)
-        Me.DataGridView6.Margin = New System.Windows.Forms.Padding(2)
+        Me.DataGridView6.Location = New System.Drawing.Point(3, 2)
+        Me.DataGridView6.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.DataGridView6.Name = "DataGridView6"
         Me.DataGridView6.RowTemplate.Height = 24
-        Me.DataGridView6.Size = New System.Drawing.Size(705, 628)
+        Me.DataGridView6.Size = New System.Drawing.Size(943, 790)
         Me.DataGridView6.TabIndex = 0
         '
         'OptionIDDataGridViewTextBoxColumn1
@@ -1735,14 +1855,15 @@ Partial Class Form1
         '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1080, 738)
+        Me.ClientSize = New System.Drawing.Size(1440, 908)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Form1"
         Me.Text = "TeBaM"
         Me.MenuStrip1.ResumeLayout(False)
@@ -1774,8 +1895,6 @@ Partial Class Form1
         CType(Me.DataGridView5, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
-        Me.GroupBox9.ResumeLayout(False)
-        Me.GroupBox9.PerformLayout()
         Me.GroupBox8.ResumeLayout(False)
         Me.GroupBox6.ResumeLayout(False)
         Me.TabPage2.ResumeLayout(False)
@@ -1857,16 +1976,7 @@ Partial Class Form1
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents DataGridView5 As DataGridView
-    Friend WithEvents Column1 As DataGridViewComboBoxColumn
-    Friend WithEvents Column2 As DataGridViewComboBoxColumn
-    Friend WithEvents Column3 As DataGridViewComboBoxColumn
-    Friend WithEvents Column4 As DataGridViewComboBoxColumn
-    Friend WithEvents OptionIDDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents AngebotsnummerDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents ArtikelIDDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
-    Friend WithEvents SortRowDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
     Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents GroupBox9 As GroupBox
     Friend WithEvents TBox_Angebotstitel As TextBox
     Friend WithEvents GroupBox8 As GroupBox
     Friend WithEvents Btn_delOffer As Button
@@ -1976,4 +2086,14 @@ Partial Class Form1
     Friend WithEvents ArtikelIDDataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
     Friend WithEvents SortRowDataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents AngebotBindingSource As BindingSource
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Column1 As DataGridViewComboBoxColumn
+    Friend WithEvents Column2 As DataGridViewComboBoxColumn
+    Friend WithEvents Column5 As DataGridViewComboBoxColumn
+    Friend WithEvents Column3 As DataGridViewComboBoxColumn
+    Friend WithEvents Column4 As DataGridViewComboBoxColumn
+    Friend WithEvents OptionIDDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents AngebotsnummerDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents ArtikelIDDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
+    Friend WithEvents SortRowDataGridViewTextBoxColumn As DataGridViewTextBoxColumn
 End Class

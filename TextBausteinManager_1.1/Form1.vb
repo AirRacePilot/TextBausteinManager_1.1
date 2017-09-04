@@ -1031,9 +1031,11 @@ Public Class Form1
                     SpezRow.SortRow = DataGridView5.Rows.Count + 1
                     'Hier fehlen noch Daten aus der Artikel Tabelle
                     Dim ArtikelRow As DataSet1.ArtikelRow = DataSet1.Artikel.FindByArtikelID(SpezRow.ArtikelID)
-                    DataSet1.SpezOptionen.Rows.Add(SpezRow)
+                    If ArtikelRow IsNot Nothing Then
+                        DataSet1.SpezOptionen.Rows.Add(SpezRow)
+                    End If
                 Else
-                    If SelNode.Checked = False Then
+                        If SelNode.Checked = False Then
                         'hier selektierten Artikel aus Angebot entfernen
                         For Each SpezRow In DataSet1.SpezOptionen.Select("ArtikelID = '" & SelNode.Name & "'")
                             If SpezRow.Angebotsnummer = CB_Angebotsnummer.Text Then
@@ -1043,7 +1045,7 @@ Public Class Form1
                     End If
                 End If
             End If
-            NewNumberOffer()
+            'NewNumberOffer()
         End If
     End Sub
 #End Region
@@ -1073,6 +1075,15 @@ Public Class Form1
             answer = InputBox(prompt, title, defaultResponse)
             CB_Kundennummer.Text = answer
             If answer IsNot "" Then
+                'erst alle Felder leerräumen
+                TBox_Firma1.Text = ""
+                TBox_Firma2.Text = ""
+                TBox_Name1.Text = ""
+                TBox_Name2.Text = ""
+                TBox_Strasse.Text = ""
+                TB_PLZ.Text = ""
+                TB_Ort.Text = ""
+                'neue Eingaben in Dataset übernehmen
                 Dim NewKRow As DataSet1.KundeRow = Nothing
                 NewKRow = DataSet1.Kunde.NewKundeRow
                 NewKRow.KundenID = "KdID_" & Guid.NewGuid.ToString
@@ -1169,7 +1180,7 @@ Public Class Form1
     End Sub
 
     Private Sub BTN_up_Click(sender As Object, e As EventArgs) Handles BTN_up.Click
-        Me.DataGridView5.Sort(Me.DataGridView5.Columns(7), System.ComponentModel.ListSortDirection.Ascending)
+        Me.DataGridView5.Sort(Me.DataGridView5.Columns(8), System.ComponentModel.ListSortDirection.Ascending)
         Dim Idx As DataSet1.SpezOptionenRow = FKAngebotSpezOptionenBindingSource.Item(FKAngebotSpezOptionenBindingSource.Position).row
         DataGridView5.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         If DataGridView5.CurrentRow.Index > 0 Then
@@ -1189,7 +1200,7 @@ Public Class Form1
     End Sub
 
     Private Sub BTN_down_Click(sender As Object, e As EventArgs) Handles BTN_down.Click
-        Me.DataGridView5.Sort(Me.DataGridView5.Columns(7), System.ComponentModel.ListSortDirection.Ascending)
+        Me.DataGridView5.Sort(Me.DataGridView5.Columns(8), System.ComponentModel.ListSortDirection.Ascending)
         Dim Idx As DataSet1.SpezOptionenRow = FKAngebotSpezOptionenBindingSource.Item(FKAngebotSpezOptionenBindingSource.Position).row
         DataGridView5.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         If DataGridView5.CurrentRow.Index < DataGridView5.Rows.Count - 1 Then
@@ -1207,22 +1218,7 @@ Public Class Form1
             Idx.SortRow = Index_DRx
         End If
     End Sub
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #End Region
+
 
 End Class
