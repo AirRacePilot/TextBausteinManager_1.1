@@ -17,16 +17,16 @@ Public Class Form1
     Private NodeMap As String
     Private Const MAPSIZE As Integer = 128
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents TextBox4 As TextBox
-    Friend WithEvents TextBox3 As TextBox
-    Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents Label4 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents TextBox5 As TextBox
-    Friend WithEvents Label5 As Label
+    'Friend WithEvents TextBox4 As TextBox
+    'Friend WithEvents TextBox3 As TextBox
+    'Friend WithEvents TextBox2 As TextBox
+    'Friend WithEvents TextBox1 As TextBox
+    'Friend WithEvents Label4 As Label
+    'Friend WithEvents Label3 As Label
+    'Friend WithEvents Label2 As Label
+    'Friend WithEvents Label1 As Label
+    'Friend WithEvents TextBox5 As TextBox
+    'Friend WithEvents Label5 As Label
     Friend WithEvents save_XML As Button
     Friend WithEvents load_XML As Button
     Private NewNodeMap As New System.Text.StringBuilder(MAPSIZE)
@@ -95,7 +95,9 @@ Public Class Form1
         NewTreeView1.Focus()
         'Me.DataGridView5.Sort(Me.DataGridView5.Columns(7), System.ComponentModel.ListSortDirection.Ascending)
     End Sub
+
 #End Region
+
 
     Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If TBMStructure = True Then
@@ -558,7 +560,6 @@ Public Class Form1
         If currentNode.Parent IsNot Nothing Then
             SelectedNodeChanged()
         End If
-
         Dim WurzelKnoten As String = ""
         If NewTreeView1.SelectedNode.Tag = "article" Then
             WurzelKnoten = FindManufacturerNode(currentNode)
@@ -567,20 +568,22 @@ Public Class Form1
         If NewTreeView1.SelectedNode.Tag = "product" Then
             WurzelKnoten = FindManufacturerNode(currentNode)
             CBox_Hersteller.Text = WurzelKnoten
+            CBox_Produkt.Text = currentNode.Parent.Text
+        End If
+        If NewTreeView1.SelectedNode.Tag = "manufacturer" Then
+            CBox_Hersteller.Text = NewTreeView1.SelectedNode.Text
+            CBox_Produkt.Text = ""
         End If
 
-
-        If NewTreeView1.SelectedNode.Tag = "manufacturer" Then CBox_Hersteller.Text = NewTreeView1.SelectedNode.Text
         ' If NewTreeView1.SelectedNode.Tag = "product" Then CBox_Produkt.Text = NewTreeView1.SelectedNode.Text
         TBox_NodeText.Text = NewTreeView1.SelectedNode.Text
         TBox_NodeName.Text = NewTreeView1.SelectedNode.Name
         TBox_NodeTag.Text = NewTreeView1.SelectedNode.Tag
         TBox_NodeImageIndex.Text = CStr(NewTreeView1.SelectedNode.ImageIndex)
         TBox_NodeSelImageIndex.Text = CStr(NewTreeView1.SelectedNode.SelectedImageIndex)
+        MaskedTBox_EK.BeginInvoke(New DelegatePriceChange(AddressOf TM_ChangeEK), MaskedTBox_EK.Text)
+        MaskedTBox_VK.BeginInvoke(New DelegatePriceChange(AddressOf TM_ChangeVK), MaskedTBox_VK.Text)
     End Sub
-
-
-
 
     Private Function FindManufacturerNode(node As TreeNode)
         While node IsNot Nothing
@@ -612,7 +615,8 @@ Public Class Form1
                 'markiert die Zeile
                 DataGridView5.SelectionMode = DataGridViewSelectionMode.FullRowSelect
                 DataGridView5.Rows(i).Selected = True
-                DataGridView5.FirstDisplayedScrollingRowIndex = i
+                'DataGridView5.FirstDisplayedScrollingRowIndex = i
+
             End If
         Next
         'fertig
@@ -637,7 +641,8 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub DataGridView5_MouseClick(sender As Object, e As MouseEventArgs) Handles DataGridView5.MouseClick
+
+    Private Sub DataGridView5_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView5.CellClick
         If DataGridView5.Rows.Count > 0 Then
             Dim ArtikelID As String = ""
             Dim node As TreeNode = Nothing
@@ -648,8 +653,8 @@ Public Class Form1
                 NewTreeView1.SelectedNode.Expand()
             End If
         End If
-
     End Sub
+
 
     Private Sub CBox_Produkt_DropDownClosed(sender As Object, e As EventArgs) Handles CBox_Produkt.DropDownClosed
         NewTreeView1.SelectedNode = NewTreeView1.Nodes.Find(CBox_Produkt.SelectedValue, True)(0)
@@ -823,15 +828,9 @@ Public Class Form1
 #End Region
 
 #Region "Texbox Formatierungen erstellen"
-    Private Sub MaskedTBox_EK_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MaskedTBox_EK.KeyPress
-        Select Case Asc(e.KeyChar)
-            Case 48 To 57, 8
-            Case Else
-                e.Handled = True
-        End Select
-    End Sub
+    Delegate Sub DelegatePriceChange(ByVal textvalue As String)
 
-    Private Sub MaskedTBox_EK_TextChanged(sender As Object, e As EventArgs) Handles MaskedTBox_EK.TextChanged
+    Sub TM_ChangeEK(ByVal input As String)
         If MaskedTBox_EK.Text <> "" Then
             MaskedTBox_EK.Text = String.Format("{0:C2}", CDbl(MaskedTBox_EK.Text)) 'Formatierung mit Währungszeichen
         Else
@@ -839,15 +838,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub MaskedTBox_VK_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MaskedTBox_VK.KeyPress
-        Select Case Asc(e.KeyChar)
-            Case 48 To 57, 8
-            Case Else
-                e.Handled = True
-        End Select
-    End Sub
-
-    Private Sub MaskedTBox_VK_TextChanged(sender As Object, e As EventArgs) Handles MaskedTBox_VK.TextChanged
+    Sub TM_ChangeVK(ByVal input As String)
         If MaskedTBox_VK.Text <> "" Then
             MaskedTBox_VK.Text = String.Format("{0:C2}", CDbl(MaskedTBox_VK.Text)) 'Formatierung mit Währungszeichen
         Else
@@ -855,7 +846,31 @@ Public Class Form1
         End If
     End Sub
 
-       Private Sub MaskedTBox_Artikelnummer_MaskInputRejected(sender As Object, e As MaskInputRejectedEventArgs) Handles MaskedTBox_Artikelnummer.MaskInputRejected
+    Private Sub MaskedTBox_EK_Leave(sender As Object, e As EventArgs) Handles MaskedTBox_EK.Leave
+        MaskedTBox_EK.BeginInvoke(New DelegatePriceChange(AddressOf TM_ChangeEK), MaskedTBox_EK.Text)
+    End Sub
+
+    Private Sub MaskedTBox_VK_Leave(sender As Object, e As EventArgs) Handles MaskedTBox_VK.Leave
+        MaskedTBox_VK.BeginInvoke(New DelegatePriceChange(AddressOf TM_ChangeVK), MaskedTBox_VK.Text)
+    End Sub
+
+    Private Sub MaskedTBox_EK_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MaskedTBox_EK.KeyPress
+        Select Case Asc(e.KeyChar)
+            Case 48 To 57, 8, 44
+            Case Else
+                e.Handled = True
+        End Select
+    End Sub
+
+    Private Sub MaskedTBox_VK_KeyPress(sender As Object, e As KeyPressEventArgs) Handles MaskedTBox_VK.KeyPress
+        Select Case Asc(e.KeyChar)
+            Case 48 To 57, 8, 44
+            Case Else
+                e.Handled = True
+        End Select
+    End Sub
+
+    Private Sub MaskedTBox_Artikelnummer_MaskInputRejected(sender As Object, e As MaskInputRejectedEventArgs) Handles MaskedTBox_Artikelnummer.MaskInputRejected
         ToolTip1.ToolTipTitle = "falsche Eingabe"
         ToolTip1.Show("nur Zahlen sind zulässig!", MaskedTBox_Artikelnummer, 3000)
     End Sub
@@ -1021,24 +1036,31 @@ Public Class Form1
         Dim InOffer As Boolean = False
         If CB_Angebotsnummer.Text <> "" Then
             SpezRow = DataSet1.SpezOptionen.NewSpezOptionenRow
-            If SelNode IsNot Nothing Then
+            ' If SelNode IsNot Nothing Then
+            If SelNode.Tag IsNot Nothing Then
                 If SelNode.Checked = True Then
-                    'row.AGSelected = "true"
+                    'If SelNode.Tag = "article" Then
                     'hier neue Artikel im Angebot einfügen
-                    SpezRow.Angebotsnummer = CB_Angebotsnummer.Text
-                    SpezRow.ArtikelID = SelNode.Name
-                    SpezRow.OptionID = CStr(Guid.NewGuid.ToString)
-                    SpezRow.SortRow = DataGridView5.Rows.Count + 1
-                    'Hier fehlen noch Daten aus der Artikel Tabelle
-                    Dim ArtikelRow As DataSet1.ArtikelRow = DataSet1.Artikel.FindByArtikelID(SpezRow.ArtikelID)
-                    If ArtikelRow IsNot Nothing Then
+                    ' MsgBox(SelNode.Tag)
+                    If SelNode.Tag = "article" Then
+
+                        Dim ArtikelRow As DataSet1.ArtikelRow = DataSet1.Artikel.FindByArtikelID(SelNode.Name)
+                        SpezRow.Angebotsnummer = CB_Angebotsnummer.Text
+                        SpezRow.ArtikelID = SelNode.Name
+                        SpezRow.OptionID = CStr(Guid.NewGuid.ToString)
+
+                        If ArtikelRow.lfdNrPosAG = 0 Then ArtikelRow.lfdNrPosAG = 1
+                        SpezRow.SortRow = ArtikelRow.lfdNrPosAG
+                        'SpezRow.SortRow = DataGridView5.Rows.Count + 1
                         DataSet1.SpezOptionen.Rows.Add(SpezRow)
                     End If
                 Else
-                        If SelNode.Checked = False Then
+                    If SelNode.Checked = False Then
                         'hier selektierten Artikel aus Angebot entfernen
                         For Each SpezRow In DataSet1.SpezOptionen.Select("ArtikelID = '" & SelNode.Name & "'")
                             If SpezRow.Angebotsnummer = CB_Angebotsnummer.Text Then
+                                Dim ArtikelRow As DataSet1.ArtikelRow = DataSet1.Artikel.FindByArtikelID(SpezRow.ArtikelID)
+                                ArtikelRow.lfdNrPosAG = CInt(SpezRow.SortRow)
                                 SpezRow.Delete()
                             End If
                         Next
@@ -1152,10 +1174,12 @@ Public Class Form1
 
     Private Sub CB_Angebotsnummer_SelectedValueChanged(sender As Object, e As EventArgs) Handles CB_Angebotsnummer.SelectedValueChanged
         TreeView_actualize()
+
     End Sub
 
     Private Sub CB_Kundennummer_SelectedValueChanged(sender As Object, e As EventArgs) Handles CB_Kundennummer.SelectedValueChanged
         TreeView_actualize()
+
     End Sub
 
     Sub TreeView_actualize()
@@ -1180,7 +1204,8 @@ Public Class Form1
     End Sub
 
     Private Sub BTN_up_Click(sender As Object, e As EventArgs) Handles BTN_up.Click
-        Me.DataGridView5.Sort(Me.DataGridView5.Columns(8), System.ComponentModel.ListSortDirection.Ascending)
+
+        'Me.DataGridView5.Sort(Me.DataGridView5.Columns(8), System.ComponentModel.ListSortDirection.Ascending)
         Dim Idx As DataSet1.SpezOptionenRow = FKAngebotSpezOptionenBindingSource.Item(FKAngebotSpezOptionenBindingSource.Position).row
         DataGridView5.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         If DataGridView5.CurrentRow.Index > 0 Then
@@ -1188,7 +1213,7 @@ Public Class Form1
             Dim Index_DRx As Integer
             Dim Index_Idx As Integer
             If Idx.SortRow = DRx.SortRow Then
-                If DRx.SortRow > 1 Then
+                If DRx.SortRow >= 1 Then
                     DRx.SortRow = DRx.SortRow - 1
                 End If
             End If
@@ -1200,7 +1225,8 @@ Public Class Form1
     End Sub
 
     Private Sub BTN_down_Click(sender As Object, e As EventArgs) Handles BTN_down.Click
-        Me.DataGridView5.Sort(Me.DataGridView5.Columns(8), System.ComponentModel.ListSortDirection.Ascending)
+
+        'Me.DataGridView5.Sort(Me.DataGridView5.Columns(8), System.ComponentModel.ListSortDirection.Ascending)
         Dim Idx As DataSet1.SpezOptionenRow = FKAngebotSpezOptionenBindingSource.Item(FKAngebotSpezOptionenBindingSource.Position).row
         DataGridView5.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         If DataGridView5.CurrentRow.Index < DataGridView5.Rows.Count - 1 Then
@@ -1208,8 +1234,10 @@ Public Class Form1
             Dim Index_DRx As Integer
             Dim Index_Idx As Integer
             If Idx.SortRow = DRx.SortRow Then
-                If DRx.SortRow > 1 Then
+                If DRx.SortRow >= 1 Then
                     DRx.SortRow = DRx.SortRow + 1
+                Else
+
                 End If
             End If
             Index_DRx = DRx.SortRow
@@ -1218,6 +1246,10 @@ Public Class Form1
             Idx.SortRow = Index_DRx
         End If
     End Sub
+
+
+
+
 #End Region
 
 

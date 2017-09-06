@@ -1007,7 +1007,7 @@ Partial Public Class DataSet1
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Overloads Function AddArtikelRow(ByVal ArtikelID As String, ByVal parentProduktRowByProdukt_Artikel As ProduktRow, ByVal lfdNrPosAG As Short, ByVal URL As String, ByVal Artikelnr As Integer, ByVal Rubrik As String, ByVal Artikelkurztext As String, ByVal Beschreibung As String, ByVal EKPreis As Double, ByVal VKPreis As Double, ByVal Faktor As String, ByVal AGSelected As Boolean) As ArtikelRow
+        Public Overloads Function AddArtikelRow(ByVal ArtikelID As String, ByVal parentProduktRowByProdukt_Artikel As ProduktRow, ByVal lfdNrPosAG As Short, ByVal URL As String, ByVal Artikelnr As Integer, ByVal Rubrik As String, ByVal Artikelkurztext As String, ByVal Beschreibung As String, ByVal EKPreis As Double, ByVal VKPreis As Double, ByVal Faktor As Double, ByVal AGSelected As Boolean) As ArtikelRow
             Dim rowArtikelRow As ArtikelRow = CType(Me.NewRow,ArtikelRow)
             Dim columnValuesArray() As Object = New Object() {ArtikelID, Nothing, lfdNrPosAG, URL, Artikelnr, Rubrik, Artikelkurztext, Beschreibung, EKPreis, VKPreis, Faktor, AGSelected}
             If (Not (parentProduktRowByProdukt_Artikel) Is Nothing) Then
@@ -1078,13 +1078,14 @@ Partial Public Class DataSet1
             MyBase.Columns.Add(Me.columnEKPreis)
             Me.columnVKPreis = New Global.System.Data.DataColumn("VKPreis", GetType(Double), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnVKPreis)
-            Me.columnFaktor = New Global.System.Data.DataColumn("Faktor", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnFaktor = New Global.System.Data.DataColumn("Faktor", GetType(Double), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnFaktor)
             Me.columnAGSelected = New Global.System.Data.DataColumn("AGSelected", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnAGSelected)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("ArtikelKey1", New Global.System.Data.DataColumn() {Me.columnArtikelID}, true))
             Me.columnArtikelID.AllowDBNull = false
             Me.columnArtikelID.Unique = true
+            Me.columnlfdNrPosAG.DefaultValue = CType(0,Short)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2798,13 +2799,13 @@ Partial Public Class DataSet1
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Property Faktor() As String
+        Public Property Faktor() As Double
             Get
-                If Me.IsFaktorNull Then
-                    Return String.Empty
-                Else
-                    Return CType(Me(Me.tableArtikel.FaktorColumn),String)
-                End If
+                Try 
+                    Return CType(Me(Me.tableArtikel.FaktorColumn),Double)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("Der Wert für Spalte Faktor in Tabelle Artikel ist DBNull.", e)
+                End Try
             End Get
             Set
                 Me(Me.tableArtikel.FaktorColumn) = value

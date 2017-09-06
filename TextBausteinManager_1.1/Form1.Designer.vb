@@ -701,7 +701,7 @@ Partial Class Form1
         Me.SortRowDataGridViewTextBoxColumn.DefaultCellStyle = DataGridViewCellStyle5
         Me.SortRowDataGridViewTextBoxColumn.HeaderText = "SortRow"
         Me.SortRowDataGridViewTextBoxColumn.Name = "SortRowDataGridViewTextBoxColumn"
-        Me.SortRowDataGridViewTextBoxColumn.Width = 109
+        Me.SortRowDataGridViewTextBoxColumn.Visible = False
         '
         'GroupBox3
         '
