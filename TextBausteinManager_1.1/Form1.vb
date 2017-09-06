@@ -116,8 +116,6 @@ Public Class Form1
         End If
     End Sub
 
-
-
 #Region "Hersteller, Produkt und Artikel im TreeView hinzufügen oder löschen; TSB=ToolStripButton"
     Private Sub TSB_AddManufacturerNode_Click(sender As Object, e As EventArgs) Handles TSB_AddManufacturerNode.Click
         Dim prompt As String = String.Empty
@@ -595,11 +593,6 @@ Public Class Form1
         End While
     End Function
 
-
-
-
-
-
     Sub ArticleHMI(NodeTag As String)
         If NodeTag = "article" Then
             GroupBox2.Enabled = True
@@ -694,7 +687,6 @@ Public Class Form1
             End If
         End If
     End Sub
-
 #End Region
 
 #Region "Produktstruktur und Dataset speichern oder speichern unter sowie öffnen"
